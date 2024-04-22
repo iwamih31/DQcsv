@@ -58,7 +58,7 @@ public class Item extends AbstractTableModel{
 				case 1 :
 					Battle.pTable();
 //					Battle.pList();
-					Controller.setMessage("[ "+ useI + " ]を誰に使いますか？");
+					Main.controller.setMessage("[ "+ useI + " ]を誰に使いますか？");
 					itemText = new String[2];
 					itemText[0] = (p + "は" + useI + "を使った・・・");
 					itemText[1] = ("○○のHPが○○回復した❤❤❤");
@@ -68,7 +68,7 @@ public class Item extends AbstractTableModel{
 						noMonster();
 					} else {
 						Battle.mList();
-						Controller.setMessage("[ "+ useI + " ]をどのモンスターに使いますか？");
+						Main.controller.setMessage("[ "+ useI + " ]をどのモンスターに使いますか？");
 						itemText = new String[2];
 						itemText[0] = (p + "は" + useI + "を使った・・・");
 						itemText[1] = (useI + "は効かなかった");
@@ -119,7 +119,7 @@ public class Item extends AbstractTableModel{
 					System.out.print("[ "+ useI + " ]を誰に使いますか？");
 //					Battle.pList();
 					System.out.println("");
-					Controller.setMessage("[ "+ useI + " ]を誰に使いますか？");
+					Main.controller.setMessage("[ "+ useI + " ]を誰に使いますか？");
 					itemText = new String[2];
 					itemText[0] = (p + "は" + useI + "を使った・・・");
 					itemText[1] = ("○○は生き返った!!!");

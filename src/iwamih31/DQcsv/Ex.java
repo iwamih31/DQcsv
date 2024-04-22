@@ -100,7 +100,7 @@ public class Ex extends AbstractTableModel{
 			notMp();
 		} else {
 			whom();
-			Controller.setMode(22501);
+			Main.controller.setMode(22501);
 		}
 	}
 
@@ -135,7 +135,7 @@ public class Ex extends AbstractTableModel{
 			notMp();
 		} else {
 			whom();
-			Controller.setMode(22502);
+			Main.controller.setMode(22502);
 		}
 	}
 
@@ -194,7 +194,7 @@ public class Ex extends AbstractTableModel{
 //		Battle.pList();
 		System.out.println("");
 		exText = new String[]{useEx + "を、誰に行いますか？"};
-		Controller.setMenu(Main.getpNa());
+		Main.controller.setMenu(Main.getpNa());
 	}
 
 	public Object[] menu() {

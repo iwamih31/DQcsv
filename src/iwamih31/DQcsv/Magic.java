@@ -80,7 +80,7 @@ public class Magic extends Ex{
 			} else {
 				Battle.mList();
 				exText = new String[]{useEx + "を、どのモンスターに行いますか？"};
-				Controller.setMode(22503);
+				Main.controller.setMode(22503);
 			}
 		}
 	}

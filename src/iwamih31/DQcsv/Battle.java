@@ -184,7 +184,7 @@ public class Battle extends AbstractTableModel{
 		    System.out.println("");
 		    battleText = new String[]{ "気のせいだったようだ・・・" };
 		    fMode = 0;
-		    Controller.setMode(555);
+		    Main.controller.setMode(555);
 		}else{
 			System.out.println( "" );
 			mList();
@@ -279,7 +279,7 @@ public class Battle extends AbstractTableModel{
 			if (pHp > 0 && 1 > mHp) { //戦闘終了後(勝ちの場合)
 				battleText = new String[]{ Main.getName() + "は" + Main.getmName() + "に勝利した♪" };
 				pTable();
-				Controller.setMode(5555);
+				Main.controller.setMode(5555);
 			}
 			if (pHp < 1) { // 全滅時
 				battleText = new String[]{ Main.getName() + "は全滅した・・・" };
@@ -292,7 +292,7 @@ public class Battle extends AbstractTableModel{
 				Main.setG(Main.getG() / 2);
 				// 続き
 				Story.relief();
-				Controller.setMode(9);
+				Main.controller.setMode(9);
 			}
 		Main.save();
 		}
@@ -365,7 +365,7 @@ public class Battle extends AbstractTableModel{
 	static void item() {
 		int r = new java.util.Random().nextInt(10);
 		if (r < 8) {
-			Controller.setMode(55555);
+			Main.controller.setMode(55555);
 			Main.getItem();
 		} else {
 			battleText = new String[]{ Main.getmName() + "の居た場所には何もなかった・・・" };
@@ -515,8 +515,8 @@ public class Battle extends AbstractTableModel{
 		if(par[p].getHp()>0){
 			Battle.bMenu();
 			battleText = new String[]{"⇒☆[[ " + par[p].getName() + " ]]☆は、どうしますか？"};
-			Controller.setMenu(menu);
-			Controller.setMode(50);
+			Main.controller.setMenu(menu);
+			Main.controller.setMode(50);
 		}
 	}
 
@@ -645,7 +645,7 @@ public class Battle extends AbstractTableModel{
 	private void mBattle(int m) {///////////////////////////////////////////モンスターのターン
 		Monster mon = mons[m];
 		if (mon.getHp() > 0) {
-			Controller.setMode(555);
+			Main.controller.setMode(555);
 			pTable();
 			System.out.println("");
 			System.out.print("⇒★[[ " + mon.getName() + " ]]★は、");
@@ -724,7 +724,7 @@ public class Battle extends AbstractTableModel{
 				case 6 : // 能力
 				case 7 :
 				case 8 :
-					Controller.setMode(555);
+					Main.controller.setMode(555);
 					mons[m].ex(m);
 					break;
 				case 0 : // 逃げる

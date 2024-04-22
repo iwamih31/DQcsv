@@ -38,13 +38,13 @@ import javax.swing.table.TableModel;
 public class View extends JFrame implements ActionListener, KeyListener {
 
 	JLabel ansLabel;
-	static JLabel display;
-	protected static String value;
+	JLabel display;
+	protected String value;
 	String op1;
 	String op2;
 	String operator;
 	int opMode;
-	private static JLabel q;
+	private JLabel q;
 	static JTextArea inp_Text;
 	private Story sto;
 	private JComponent pict;
@@ -53,15 +53,12 @@ public class View extends JFrame implements ActionListener, KeyListener {
 	private JTextArea textAreaC;
 	private JTextArea textAreaE;
 	private JTextArea textAreaS;
-	private static Border border;
+	private  Border border;
 	private JTextArea textAreaB;
 	private JTextArea menuAreaB;
-	private JTextArea pictAreaB;
-//	private static String ent;
-	private static Story story;
-	private JPanel eventPanel;
-	private JPanel backPanel;
-	private String cancel;
+	private  JTextArea pictAreaB;
+	private  JPanel eventPanel;
+	private  JPanel backPanel;
 	private JLabel[][] drawMap;
 	private JPanel mapPanel;
 	private ImageIcon centerIcon;
@@ -69,38 +66,29 @@ public class View extends JFrame implements ActionListener, KeyListener {
 	private JButton button_Ent;
 	private JButton[] menuButton;
 	private JButton cancelButton;
-//	private int menuNum;
-//	private String imageURL;
 	Music music;
-//	private String center_Image;
-//	private String image_Map_URL;
-//	private String image_Map_Type;
 	private Controller controller;
-	private static int w;
-	private static int h;
-	private static int fontSize;
-	private static int count;
-//	private static String message;
-	private static Object[] menu;
-//	private static int mode;
-	private static Component panelN;
-	private static Component panelW;
-	private static Component panelC;
-	private static Component panelE;
-	private static Component panelS;
-	private static JLabel labelN;
-	private static JLabel labelW;
-	private static JLabel labelC;
-	private static JLabel labelE;
-	private static JLabel labelS;
-	private static String tex;
-	private static JFrame frame;
-	private static JPanel panelSet;
-	private static JPanel changePanelSet;
-	private static CardLayout cardLayout;
-	private static JPanel clear;
-	private static JLabel space;
-//	private static String entMark;
+	private int w;
+	private int h;
+	private int fontSize;
+	private int count;
+	private Object[] menu;
+	private Component panelN;
+	private Component panelW;
+	private Component panelC;
+	private Component panelE;
+	private Component panelS;
+	private JLabel labelN;
+	private JLabel labelW;
+	private JLabel labelC;
+	private JLabel labelE;
+	private JLabel labelS;
+	private JFrame frame;
+	private JPanel panelSet;
+	private JPanel changePanelSet;
+	private CardLayout cardLayout;
+	private JPanel clear;
+	private JLabel space;
 
 	public View(Object[] mList) {
 		super("メニュー");
@@ -113,6 +101,7 @@ public class View extends JFrame implements ActionListener, KeyListener {
 	}
 
 	private void start(String title) {
+		controller = Main.controller;
 		setMode(0);
 		// ディスプレイサイズを基準に、横1％、縦1％、フォントサイズを決定
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -120,9 +109,6 @@ public class View extends JFrame implements ActionListener, KeyListener {
     h = screenSize.height / 100;
     fontSize = w;
 		border = new LineBorder(Color.WHITE, 2, true);
-//		entMark = (" ⇒ ");
-//		ent = entMark;
-		cancel = "Cancel";
 		labelSet("");
 		int bWE = 30;
 		textAreaB = textAreaSet("",1,5);
@@ -143,23 +129,18 @@ public class View extends JFrame implements ActionListener, KeyListener {
 		panelE = panelSetUD(null, textAreaE);
 		panelS = panelSetUD(null, textAreaS);
 		space = labelSet("                                       ");
-//		imageURL =  "image/";
-//		image_Map_URL = "image_map/";
-//		image_Map_Type = ".png";
-//		center_Image = "勇者";
 		music = null;
 		repeatMusic("オープニング");
 		outer();
-		controller = new Controller();
 		Console._____OUT_____("テスト");
 	}
 
-	private static JLabel b() {
+	private JLabel b() {
 		JLabel b = labelSet(" ");
 		return b;
 	}
 
-	private static JTextArea textAreaSet(String text, int rows, int columns) {
+	private JTextArea textAreaSet(String text, int rows, int columns) {
 		JTextArea textAreaSet = new JTextArea(text, rows,columns);
 		format(textAreaSet);
 		textAreaSet.setEditable(false);
@@ -167,14 +148,14 @@ public class View extends JFrame implements ActionListener, KeyListener {
 		return textAreaSet;
 	}
 
-	private static JLabel labelSet(String string) {
+	private JLabel labelSet(String string) {
 		JLabel labelSet = new JLabel(string, JLabel.CENTER);
 		format(labelSet);
 		labelSet.setOpaque(false);///////////////背景を透明にする
 		return labelSet;
 	}
 
-	private static JPanel panelSetLR(Object left, Object right) {
+	private JPanel panelSetLR(Object left, Object right) {
 		JPanel panelSet = new JPanel();
 		format(panelSet, 100, 100);
 		panelSet.setLayout(new BoxLayout(panelSet, BoxLayout.X_AXIS));
@@ -187,7 +168,7 @@ public class View extends JFrame implements ActionListener, KeyListener {
 		return panelSet;
 	}
 
-	private static JPanel panelSetUD(Object up, Object down) {
+	private JPanel panelSetUD(Object up, Object down) {
 		JPanel panelSet = new JPanel();
 		format(panelSet, 100, 100);
 		panelSet.setLayout(new BoxLayout(panelSet, BoxLayout.Y_AXIS));
@@ -200,7 +181,7 @@ public class View extends JFrame implements ActionListener, KeyListener {
 		return panelSet;
 	}
 
-	private static JPanel panelSetWCE(Object west, Object center, Object east) {
+	private JPanel panelSetWCE(Object west, Object center, Object east) {
 		JPanel panelSet = new JPanel();
 		format(panelSet, 100, 100);
 		panelSet.setLayout(new BorderLayout());
@@ -216,7 +197,7 @@ public class View extends JFrame implements ActionListener, KeyListener {
 		return panelSet;
 	}
 
-	private static JPanel panelSetNCS(Object north, Object center, Object south) {
+	private JPanel panelSetNCS(Object north, Object center, Object south) {
 		JPanel panelSet = new JPanel();
 		format(panelSet);
 		panelSet.setLayout(new BorderLayout());
@@ -232,7 +213,7 @@ public class View extends JFrame implements ActionListener, KeyListener {
 		return panelSet;
 	}
 
-	private static JPanel panelSetTMB(Object top, Object middle, Object bottom) {
+	private JPanel panelSetTMB(Object top, Object middle, Object bottom) {
 		JPanel panelSet = new JPanel();
 		format(panelSet);
 		panelSet.setLayout(new FlowLayout());
@@ -248,7 +229,7 @@ public class View extends JFrame implements ActionListener, KeyListener {
 		return panelSet;
 	}
 
-	private static void outer() {
+	private void outer() {
 		Console._____OUT_____("outer() します");
 		if (frame != null) {
 			frame.setVisible(false);
@@ -271,19 +252,19 @@ public class View extends JFrame implements ActionListener, KeyListener {
 		frame.setVisible(true);
 	}
 
-	private static void change(String view_Mode) {
+	private void change(String view_Mode) {
 		Console._____OUT_____("change(" + view_Mode + ") します");
 		cardLayout.removeLayoutComponent(panelSet);
 		changePanelSet.add(panelSet, view_Mode);
 		cardLayout.show(changePanelSet,view_Mode);
 	}
 
-	static void change() {
+	void change() {
 		panelSet();
 		change("通常");
 	}
 
-	private static JPanel panelSet() {
+	private JPanel panelSet() {
 		JPanel panelSetC = panelSetNCS(panelN, panelC, panelS);
 		panelSetC.setPreferredSize(new Dimension(w*70, h*80));
 		panelSet = new JPanel();
@@ -297,7 +278,7 @@ public class View extends JFrame implements ActionListener, KeyListener {
 		return panelSet;
 	}
 
-	private static void centerSet(Object west, Object center, Object east) {
+	private void centerSet(Object west, Object center, Object east) {
 		JLabel space = labelSet("                                       ");
 		JPanel panelQ = panelSetWCE(west, center, east);
 		JPanel panelQA = panelSetWCE(space, panelQ, space);
@@ -309,12 +290,12 @@ public class View extends JFrame implements ActionListener, KeyListener {
 		change();
 	}
 
-	private static void format(Component component, int width, int height) {
+	private void format(Component component, int width, int height) {
 		format(component);
 		component.setSize(width, height);
 	}
 
-	private static void format(Component component) {
+	private void format(Component component) {
 		component.setFont(new Font("Monospaced", Font.BOLD, fontSize));
 		component.setForeground(Color.WHITE);
 		component.setBackground(Color.BLACK);
@@ -323,7 +304,7 @@ public class View extends JFrame implements ActionListener, KeyListener {
 		}
 	}
 
-	private static Border border() {
+	private Border border() {
 		border = new LineBorder(Color.WHITE, 2, true);
 		if (getMode() > 0 && denger() > 0) {
 			border = new LineBorder(Color.YELLOW, 2, true);
@@ -351,7 +332,7 @@ public class View extends JFrame implements ActionListener, KeyListener {
 
 	void que(String question, String[] answers) { // 質問 複数回答
 		setTex(question);
-		labelC = labelSet(tex);
+		labelC = labelSet(getTex());
 		JPanel bPanel = new JPanel();
 		format(bPanel);
 		int b_Num = answers.length; // 回答ボタンの数
@@ -422,7 +403,7 @@ public class View extends JFrame implements ActionListener, KeyListener {
 			menuButton[i].setBorder(border());
 			panel.add(menuButton[i]);
 		}
-		String b_Name =  cancel;
+		String b_Name =  cancel();
 		cancelButton = new JButton(b_Name);
 		format(cancelButton);
 		cancelButton.setMargin(new Insets(20, 10, 20, 10));///////文字周りの幅
@@ -440,8 +421,12 @@ public class View extends JFrame implements ActionListener, KeyListener {
 		selectStyle();
 	}
 
+	private String cancel() {
+		return controller.getCancel();
+	}
+
 	private void menuNum(int i) {
-		Controller.setMenuNum(i);
+		controller.setMenuNum(i);
 
 	}
 
@@ -594,7 +579,7 @@ public class View extends JFrame implements ActionListener, KeyListener {
 	}
 
 	private String backPanel_Battle() {
-		return Controller.backPanel_Battle();
+		return controller.backPanel_Battle();
 	}
 
 	JPanel map2D(String[][] map_Image) {
@@ -621,11 +606,6 @@ public class View extends JFrame implements ActionListener, KeyListener {
 		return mapPanel;
 	}
 
-	private ImageIcon createImageIcon(String imageUrl) {
-		ClassLoader classLoader = this.getClass().getClassLoader();
-		return new ImageIcon(classLoader.getResource(imageUrl));
-	}
-
 	private JPanel mapCenter(JLabel centerPiecelabel) {
 		centerIcon = createImageIcon(image_Url());
 		centerLabel = new JLabel(centerIcon);
@@ -638,7 +618,7 @@ public class View extends JFrame implements ActionListener, KeyListener {
 	}
 
 	private String image_Url() {
-		return Controller.image_Url();
+		return controller.image_Url();
 	}
 
 	JPanel setBackPanel(String backURL) {
@@ -650,12 +630,17 @@ public class View extends JFrame implements ActionListener, KeyListener {
 		return backPanel;
 	}
 
+	private ImageIcon createImageIcon(String imageUrl) {
+		ClassLoader classLoader = this.getClass().getClassLoader();
+		return new ImageIcon(classLoader.getResource(imageUrl));
+	}
+
 	private String drawMonster(int number) {
-		return Controller.drawMonster(number);
+		return controller.drawMonster(number);
 	}
 
 	private String drawItem() {
-		return Controller.drawItem();
+		return controller.drawItem();
 	}
 
 	JPanel infoTable(Object setTableModel,String tableName) {
@@ -715,6 +700,7 @@ public class View extends JFrame implements ActionListener, KeyListener {
 	}
 
 	void scene() {
+		Console._____OUT_____("View.scene() します");
 		JPanel fieldPanel = new JPanel();
 		format(fieldPanel);
 		fieldPanel.setPreferredSize(new Dimension(890, 200));
@@ -817,15 +803,15 @@ public class View extends JFrame implements ActionListener, KeyListener {
 	}
 
 	private void setMenuNum(int number) {
-		Controller.setMenuNum(number);
+		controller.setMenuNum(number);
 	}
 
 	private int getMenuNum() {
-		return Controller.getMenuNum();
+		return controller.getMenuNum();
 	}
 
-	private static String entMark() {
-		return Controller.getEntMark();
+	private String entMark() {
+		return controller.getEntMark();
 	}
 
 	public void setMapNumber(int mapNumber) {
@@ -840,7 +826,7 @@ public class View extends JFrame implements ActionListener, KeyListener {
 	public void keyReleased(KeyEvent keyEvent) {
 	}
 
-	public static String inpDS(String s) {
+	public String inpDS(String s) {
 		UIManager.put("OptionPane.okButtonText", "OK");
 		UIManager.put("OptionPane.cancelButtonText", "Cancel");
 		do {
@@ -857,7 +843,7 @@ public class View extends JFrame implements ActionListener, KeyListener {
 		return value;
 	}
 
-	public static int inpDI(String s) {
+	public int inpDI(String s) {
 		UIManager.put("OptionPane.okButtonText", "OK");
 		UIManager.put("OptionPane.cancelButtonText", "Cancel");
 		do {
@@ -877,64 +863,64 @@ public class View extends JFrame implements ActionListener, KeyListener {
 		return r;
 	}
 
-	public static void setFrame(JFrame frame) {
-		View.frame = frame;
+	public void setFrame(JFrame frame) {
+		this.frame = frame;
 	}
 
 	public JFrame getFrame() {
-		return frame;
+		return this.frame;
 	}
 
-	public static void setTex(String text) {
-		tex = text;
+	public void setTex(String text) {
+		controller.setTex(text);
 	}
 
 	public String getTex() {
-		return tex;
+		return controller.getTex();
 	}
 
-	public static void setMessage(String text) {
-		Controller.setMessage(text);
+	public void setMessage(String text) {
+		controller.setMessage(text);
 	}
 
-	public static void setMessageEnt(String text) {
-		Controller.setMessageEnt(text);
+	public void setMessageEnt(String text) {
+		controller.setMessageEnt(text);
 	}
 
 	public String getMessage() {
-		return Controller.getMessage();
+		return controller.getMessage();
 	}
 
-	public static void setMode(int mode) {
-		Controller.setMode(mode);
+	public void setMode(int mode) {
+		controller.setMode(mode);
 	}
 
-	public static int getMode() {
-		return Controller.getMode();
+	public int getMode() {
+		return controller.getMode();
 	}
 
-	public static void setMenu(Object[] menu) {
-		View.menu = menu;
+	public void setMenu(Object[] menu) {
+		this.menu = menu;
 	}
 
 	public Object[] getMenu() {
 		return menu;
 	}
 
-	public static void setCount(int count) {
-		View.count = count;
+	public void setCount(int count) {
+		this.count = count;
 	}
 
-	public static int getCount() {
-		return count;
+	public int getCount() {
+		return this.count;
 	}
 
-	public static void setEnt(String ent) {
-		Controller.setEnt(ent);
+	public void setEnt(String ent) {
+		controller.setEnt(ent);
 	}
 
-	public static String getEnt() {
-		return Controller.getEnt();
+	public String getEnt() {
+		return controller.getEnt();
 	}
 
 	private void buttonName(String string) {

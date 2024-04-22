@@ -77,6 +77,8 @@ public class Main extends AbstractTableModel implements Serializable{
 
 	private static int remG;
 
+	static Controller controller;
+
 	Main(){
 	}
 
@@ -84,13 +86,11 @@ public class Main extends AbstractTableModel implements Serializable{
 	public static void main(String[] args) {
 
 		mai = new Main();
-
+		controller = new Controller();
 		party = new Member[4];
 		setHu(new Human());
 		bHp = 3;
 		g = 0;
-
-		Controller.setImageURL("image/");
 
 		// セーブ用ファイル作成
 		File newfile = new File("sData.txt");
@@ -104,7 +104,7 @@ public class Main extends AbstractTableModel implements Serializable{
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				view = new View("RPG");
-				Controller.start();
+				controller.start();
 			}
 		});
 	}
@@ -277,7 +277,7 @@ public class Main extends AbstractTableModel implements Serializable{
 	}
 
 	private static void button(Object[] choices) {
-		Controller.setMenu(choices);
+		controller.setMenu(choices);
 	}
 
 	static void shop(int select) {
@@ -329,11 +329,11 @@ public class Main extends AbstractTableModel implements Serializable{
 			getDoText()[0] = ("「 ・・・!!? 」");
 			getDoText()[1] = (name + "は、良い人に出会った♪");
 			getDoText()[2] = ("「少し元気をもらった  ↑↑↑」");
-			Controller.setMode(11);
+			controller.setMode(11);
 			Battle.pTable();
 			healing();
 		} else if (r < 10) {
-			Controller.setMode(12);
+			controller.setMode(12);
 			int c = new java.util.Random().nextInt(3);
 			String comment = null;
 			switch (bHp) {
@@ -359,16 +359,16 @@ public class Main extends AbstractTableModel implements Serializable{
 			getDoText()[2] = ("・・・");
 			Battle.pTable();
 		} else if (r < 75) {
-			Controller.setMode(1);
+			controller.setMode(1);
 			setDoText(new String[0]);
 			Battle.pTable();
 			Console._____OUT_____( "「・・・・・何も起きない、少し疲れた  (+_+)」" );
 		} else if( r < 95) {
-			Controller.setMode(14);
+			controller.setMode(14);
 			setDoText(new String[1]);
 			getDoText()[0] = ( "「!!!★★★★★!!? モンスターが現れた !!!★★★★★!!!」" );
 		} else {
-			Controller.setMode(15);
+			controller.setMode(15);
 			Battle.pTable();
 			setDoText(new String[1]);
 			getDoText()[0] = ( "「 ・・・!!? 」" );
@@ -414,10 +414,10 @@ public class Main extends AbstractTableModel implements Serializable{
 				break;
 			case 4 :
 				Battle.pTable();
-				Controller.setMessage("誰を復活させますか？");
+				controller.setMessage("誰を復活させますか？");
 				break;
 			default :
-				Controller.setMessageEnt("「またのお越しをお待ちしております。（*^o^*）」");
+				controller.setMessageEnt("「またのお越しをお待ちしております。（*^o^*）」");
 		}
 		Battle.pTable();
 		array.add("「またのお越しをお待ちしております。（*^o^*）」");
@@ -430,13 +430,13 @@ public class Main extends AbstractTableModel implements Serializable{
 		select = Main.getParty() [ who ];
 		if(select.getHp() > 0){
 			Battle.pTable();
-			Controller.setMessageEnt( "勝手に殺したら可哀想だよ・・・ (~_~;)" );
+			controller.setMessageEnt( "勝手に殺したら可哀想だよ・・・ (~_~;)" );
 		}else{
 			remG = (party[who].getLev() * 200);
 			Console.gold(getG());
-			Controller.setMode(4444);
-			Controller.setMessage(remG + "Gかかるけど復活するかい？・・・");
-			Controller.setMenu(new String[]{"はい","いいえ"});
+			controller.setMode(4444);
+			controller.setMessage(remG + "Gかかるけど復活するかい？・・・");
+			controller.setMenu(new String[]{"はい","いいえ"});
 		}
 		setText(array);
 	}
@@ -445,7 +445,7 @@ public class Main extends AbstractTableModel implements Serializable{
 		arrayClear();
 		switch (co) {
 			case 1:
-				Controller.setMode(445);
+				controller.setMode(445);
 				if (Main.getG() < remG) {
 					array.add("お金が足りません!!");
 				} else {
@@ -463,7 +463,7 @@ public class Main extends AbstractTableModel implements Serializable{
 	}
 
 	private static void message(String setMessage) {
-		Controller.setMessage(setMessage);
+		controller.setMessage(setMessage);
 	}
 
 	private static void innG() {
@@ -526,7 +526,7 @@ public class Main extends AbstractTableModel implements Serializable{
 	static void getItem() {
 		String get_Item = "○○";
 		int item_Number = 0;
-		Controller.setCount(0);
+		controller.setCount(0);
 		int what = new java.util.Random().nextInt( 100 ) + 1;
 		if( what < 45 ){
 			item_Number = 1;
@@ -705,7 +705,7 @@ public class Main extends AbstractTableModel implements Serializable{
 
 	@Override
 	public int getColumnCount() {
-		if (Controller.getMode() < (1)) {
+		if (controller.getMode() < (1)) {
 			pGet();
 		}else{
 			pSt();

@@ -14,54 +14,55 @@ public class Controller {
 
 		JLabel ansLabel;
 		static JLabel display;
-		protected static String value;
+		protected String value;
 		String op1;
 		String op2;
 		String operator;
 		int opMode;
-		private static String[] ynList;
-		private static String ent;
-		private static Story story;
-		private static String buttonName;
+		private String[] ynList;
+		private String ent;
+		private Story story;
+		private String buttonName;
 		private String yName;
 		Ex useEx;
 		private int imageCode;
-		private static String cancel;
+		private String cancel;
 		private JButton button_Ent;
 		private JButton[] menuButton;
-		private static int menuNum;
-		private static String imageURL;
+		private int menuNum;
+		private String imageURL;
 		private int mapNumber;
-		static View view;
-		private static int x;
-		private static int y;
-		private static int count;
-		private static String message;
-		private static Object[] menu;
-		private static int mode;
-		private static String tex;
-		private static JFrame frame;
-		private static String entMark;
-		private static String image_Map_URL;
-		private static String image_Map_Type;
-		private static String center_Image;
+		private View view;
+		private int x;
+		private int y;
+		private int count;
+		private String message;
+		private Object[] menu;
+		private int mode;
+		private String tex;
+		private JFrame frame;
+		private String entMark;
+		private String image_Map_URL;
+		private String image_Map_Type;
+		private String center_Image;
 
 		public Controller() {
 		}
 
-		static void start() { // 画面開始
+		void start() { // 画面開始
 			view = Main.getView();
 			ynList = new String[]{ "はい", "いいえ" };
 			entMark = (" ⇒ ");
 			ent = entMark;
 			cancel = "Cancel";
+			imageURL = "image/";
 			image_Map_URL = "image_map/";
 			image_Map_Type = ".png";
 			center_Image = "勇者";
 			que_YN("最初から始めますか？・・・");
 		}
 
-		static void que_YN(String question) { // 「はい」か「いいえ」の質問
+		void que_YN(String question) { // 「はい」か「いいえ」の質問
 			view.que(question, ynList);
 		}
 
@@ -208,7 +209,7 @@ public class Controller {
 		}
 
 		private void change() {
-			View.change();
+			view.change();
 		}
 
 		private void input(String string) {
@@ -1635,7 +1636,7 @@ public class Controller {
 			return map_Image(map_Data);
 		}
 
-		static String drawMonster(int number) {
+		String drawMonster(int number) {
 			Monster monster = Battle.mons[number];
 			String drawMonster = null;
 			switch (monster.getCode()) {
@@ -1667,7 +1668,7 @@ public class Controller {
 			return imageURL + drawMonster + ".png";
 		}
 
-		static String drawItem() {
+		String drawItem() {
 			String drawItem = null;
 			switch (Battle.getItem()) {
 				case 0 :
@@ -1762,6 +1763,7 @@ public class Controller {
 		}
 
 		private void scene() {
+			Console._____OUT_____("Controller.scene() します");
 			switch(mode) {
 				case 0:
 					setBackPanel(imageURL + "フィールド.png");
@@ -2177,7 +2179,7 @@ public class Controller {
 		public void keyReleased(KeyEvent keyEvent) {
 		}
 
-		public static String inpDS(String s) {
+		public String inpDS(String s) {
 			UIManager.put("OptionPane.okButtonText", "OK");
 			UIManager.put("OptionPane.cancelButtonText", "Cancel");
 			do {
@@ -2194,7 +2196,7 @@ public class Controller {
 			return value;
 		}
 
-		public static int inpDI(String s) {
+		public int inpDI(String s) {
 			UIManager.put("OptionPane.okButtonText", "OK");
 			UIManager.put("OptionPane.cancelButtonText", "Cancel");
 			do {
@@ -2214,8 +2216,8 @@ public class Controller {
 			return r;
 		}
 
-		public static void setFrame(JFrame frame) {
-			Controller.frame = frame;
+		public void setFrame(JFrame frame) {
+			this.frame = frame;
 		}
 
 		public JFrame getFrame() {
@@ -2229,61 +2231,61 @@ public class Controller {
 			// table.revalidate();
 		}
 
-		public static void setTex(String text) {
-			tex = text;
+		public void setTex(String text) {
+			this.tex = text;
 		}
 
 		public String getTex() {
-			return tex;
+			return this.tex;
 		}
 
-		public static void setMessage(String text) {
+		public void setMessage(String text) {
 			ent = " 　 ";
 			story = new Story();
 			story.on(text);
 		}
 
-		public static void setMessageEnt(String text) {
+		public void setMessageEnt(String text) {
 			ent = entMark;
 			story = new Story();
 			story.on(text + "     next" + ent);
 		}
 
-		public static String getMessage() {
+		public String getMessage() {
 			return message;
 		}
 
-		public static void setMode(int mode) {
+		public void setMode(int mode) {
 			Common.___logOut___("Controller.setMode(" + mode +") します");
-			Controller.mode = mode;
+			this.mode = mode;
 		}
 
-		public static int getMode() {
-			return mode;
+		public int getMode() {
+			return this.mode;
 		}
 
-		public static void setMenu(Object[] menu) {
-			Controller.menu = menu;
+		public void setMenu(Object[] menu) {
+			this.menu = menu;
 		}
 
 		public Object[] getMenu() {
-			return menu;
+			return this.menu;
 		}
 
-		public static void setCount(int count) {
-			Controller.count = count;
+		public void setCount(int count) {
+			this.count = count;
 		}
 
-		public static int getCount() {
+		public int getCount() {
 			return count;
 		}
 
-		public static void setEnt(String ent) {
-			Controller.ent = ent;
+		public void setEnt(String ent) {
+			this.ent = ent;
 		}
 
-		public static String getEnt() {
-			return ent;
+		public String getEnt() {
+			return this.ent;
 		}
 
 		public String getButtonName() {
@@ -2291,39 +2293,48 @@ public class Controller {
 		}
 
 		public void setButtonName(String buttonName) {
-			Controller.buttonName = buttonName;
+			Console._____OUT_____("buttonName = " + buttonName);
+			this.buttonName = buttonName;
 		}
 
-		public static String getImageURL() {
+		public String getImageURL() {
 			return imageURL;
 		}
 
-		public static void setImageURL(String imageURL) {
-			Controller.imageURL = imageURL;
+		public void setImageURL(String imageURL) {
+			this.imageURL = imageURL;
 		}
 
-		public static String backPanel_Battle() {
+		public String backPanel_Battle() {
 			return imageURL + "バトル.png";
 		}
 
-		public static int getMenuNum() {
+		public int getMenuNum() {
 			return menuNum;
 		}
 
-		public static void setMenuNum(int menuNum) {
-			Controller.menuNum = menuNum;
+		public void setMenuNum(int menuNum) {
+			this.menuNum = menuNum;
 		}
 
-		public static String image_Url() {
+		public String image_Url() {
 			return image_Map_URL + center_Image + image_Map_Type;
 		}
 
-		public static String getEntMark() {
+		public String getEntMark() {
 			return entMark;
 		}
 
-		public static void setEntMark(String entMark) {
-			Controller.entMark = entMark;
+		public void setEntMark(String entMark) {
+			this.entMark = entMark;
+		}
+
+		public String getCancel() {
+			return cancel;
+		}
+
+		public void setCancel(String cancel) {
+			this.cancel = cancel;
 		}
 	}
 

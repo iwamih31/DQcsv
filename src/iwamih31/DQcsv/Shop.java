@@ -89,8 +89,8 @@ public class Shop extends AbstractTableModel{
 		member.wep(3);
 		System.out.print( "(" + (( member.getWp() + 3) * 200 * 3 * 3 ) + "Ｇ)" );
 		System.out.println( "" );
-		Controller.setMessage( "どれにいたしましょう？" );
-		Controller.setMenu(new String[]{member.wepName(1),member.wepName(2),member.wepName(3)});
+		Main.controller.setMessage( "どれにいたしましょう？" );
+		Main.controller.setMenu(new String[]{member.wepName(1),member.wepName(2),member.wepName(3)});
 	}
 
 	static void buyWaponWhich(int inp) {
