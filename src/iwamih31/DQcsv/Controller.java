@@ -1788,7 +1788,6 @@ public class Controller {
 
 		private void setEventImage(String eventImage) {
 			view.setEventImage(eventImage);
-
 		}
 
 		private void map2D(int[][] originalMap) {
