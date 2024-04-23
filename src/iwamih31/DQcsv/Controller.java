@@ -7,7 +7,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.UIManager;
 
 public class Controller {
@@ -133,8 +132,8 @@ public class Controller {
 					}
 					count++;
 				} else {
-//					count = 0;
-//					musicReset();
+					count = 0;
+					musicReset();
 					mapNumber = 0;
 					toNormal();
 				}
@@ -205,7 +204,7 @@ public class Controller {
 		}
 
 		private String inputName() {
-			return View.inp_Text.getText();
+			return view.inp_Text.getText();
 		}
 
 		private void change() {
@@ -1309,8 +1308,6 @@ public class Controller {
 		private void toNormal() {
 			Common.___logOut___("toNormal() します");
 			Common.___logOut___("mapNumber = " + mapNumber);
-			count = 0;
-			musicReset();
 			setMessage("どうしますか?");
 			switch (mapNumber) {
 				case 0:
@@ -1764,6 +1761,7 @@ public class Controller {
 
 		private void scene() {
 			Console._____OUT_____("Controller.scene() します");
+			Console._____OUT_____("mode = " + mode);
 			switch(mode) {
 				case 0:
 					setBackPanel(imageURL + "フィールド.png");
@@ -1793,10 +1791,10 @@ public class Controller {
 
 		}
 
-		private JPanel map2D(int[][] originalMap) {
+		private void map2D(int[][] originalMap) {
 			int[][] map = shift_Map(originalMap, x, y);
 			String[][] map_Image = map_Image(map);
-			return view.map2D(map_Image);
+			view.set_Map2D(map_Image);
 		}
 
 		private void setBackPanel(String string) {
@@ -2256,7 +2254,7 @@ public class Controller {
 		}
 
 		public void setMode(int mode) {
-			Common.___logOut___("Controller.setMode(" + mode +") します");
+			Common.___logOut___("setMode(" + mode +") します");
 			this.mode = mode;
 		}
 

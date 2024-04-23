@@ -45,7 +45,7 @@ public class View extends JFrame implements ActionListener, KeyListener {
 	String operator;
 	int opMode;
 	private JLabel q;
-	static JTextArea inp_Text;
+	JTextArea inp_Text;
 	private Story sto;
 	private JComponent pict;
 	private JTextArea textAreaN;
@@ -97,12 +97,13 @@ public class View extends JFrame implements ActionListener, KeyListener {
 
 	public View(String title) {
 		super(title);
+		controller = Main.controller;
 		start(title);
 	}
 
 	private void start(String title) {
-		controller = Main.controller;
-		setMode(0);
+
+//		setMode(0);
 		// ディスプレイサイズを基準に、横1％、縦1％、フォントサイズを決定
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     w = screenSize.width / 100;
@@ -582,7 +583,7 @@ public class View extends JFrame implements ActionListener, KeyListener {
 		return controller.backPanel_Battle();
 	}
 
-	JPanel map2D(String[][] map_Image) {
+	private JPanel map2D(String[][] map_Image) {
 		drawMap = new JLabel[map_Image.length][map_Image[0].length];
 		mapPanel = new JPanel();
 		format(mapPanel);
@@ -602,8 +603,13 @@ public class View extends JFrame implements ActionListener, KeyListener {
 			}
 			mapPanel.add(row);
 		}
+
 		frame.setFocusable(true);
 		return mapPanel;
+	}
+
+	void set_Map2D(String[][] map_Image) {
+		eventPanel =  map2D(map_Image);
 	}
 
 	private JPanel mapCenter(JLabel centerPiecelabel) {
