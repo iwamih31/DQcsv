@@ -287,13 +287,7 @@ public class Controller {
 	void field(int modeNum) {
 		Common.___logOut___("field(" + modeNum + ") します");
 		setMode(modeNum);
-		setButtonName(null);
-		partySt();
-		info(goldList(),itemList(),null);
-		scene();
-		menu(Command.menu());
-		comment();
-		change();
+		display(Command.menu());
 	}
 
 	private void fieldMenu(Object[] setMenu) {
