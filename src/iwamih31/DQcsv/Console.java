@@ -44,4 +44,8 @@ public class Console {
 		}
 		return shop_Items;
 	}
+
+	public static void position(int x, int y) {
+		_____OUT_____("[ x = " + x + ", y = " + y + " ]");
+	}
 }

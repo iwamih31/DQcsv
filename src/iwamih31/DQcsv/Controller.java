@@ -71,10 +71,15 @@ public class Controller {
 		Main.load();
 	}
 
+	private void position(int x, int y) {
+		this.x = x;
+		this.y = y;
+		Console.position(x, y);
+	}
+
 	private void position_Initial() {
 		Console._____OUT_____("position_Initial() します");
-		x = 6;
-		y = 6;
+		position(6, 6);
 	}
 
 	private void opening() {
@@ -1466,9 +1471,9 @@ public class Controller {
 		return service.getOriginalMap(mapNumber);
 	}
 
-	private MapPiece mapPiece(int number) {
+	private MapPiece mapPiece(int piece_Number) {
 		MapPiece mapPiece = null;
-		switch (number) {
+		switch (piece_Number) {
 			case 0 :
 				String mapImage = "砂";
 				if(mapNumber == 2) mapImage = "闇";
