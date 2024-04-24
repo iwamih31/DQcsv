@@ -180,7 +180,6 @@ public class Controller {
 				break;
 			case 1 ://探す
 				repeatMusic("冒険の歌");
-				count = 0;
 				fieldAction(buttonName);
 				break;
 			case 2 ://使う
@@ -298,7 +297,7 @@ public class Controller {
 		change();
 	}
 
-	private void normal_Display(Object[] setMenu) {
+	private void display(Object[] setMenu) {
 		Common.___logOut___("fieldMenu(String[] setMenu) します");
 		TableSet[] list = info_List(mode);
 		setButtonName(null);
@@ -317,17 +316,6 @@ public class Controller {
 			info_List = new TableSet[] {goldList(),itemList(),null};
 		}
 		return info_List;
-	}
-
-	private void use() {
-		Common.___logOut___("use() します");
-		setButtonName(null);
-		partySt();
-		info(goldList(),itemList(),null);
-		scene();
-		menu(menu);
-		comment();
-		change();
 	}
 
 	private void whichUse(String selectButtonName) {
@@ -357,6 +345,50 @@ public class Controller {
 		}
 	}
 
+	private void use() {
+		Common.___logOut___("use() します");
+		display(new String[]{"道具","能力"});
+	}
+
+	private void adventure() {
+		Common.___logOut___("adventure() します");
+		display(Command.menu());
+	}
+
+	private void fieldAction(String selectButtonName) {
+		Common.___logOut___("fieldAction(" + selectButtonName +" ) します");
+		count = 0;
+		String[] button_List = Command.menu();
+		if (selectButtonName != null) {
+			// 探す
+			if (selectButtonName.equals(button_List[0])) {
+				Main.action(1);
+				setMessage("―――――" + Main.getName() + "は探検を続けた―――――");
+				setMode(10);
+				adventure();
+			}
+			// 使う
+			if (selectButtonName.equals(button_List[1])) {
+				Main.action(2);
+				setMessage("⇒どちらを使いますか？");
+				setMode(2);
+				use();
+			}
+			// 買い物
+			if (selectButtonName.equals(button_List[2])) {
+				Main.action(3);
+				setMode(3);
+				shop();
+			}
+			// 宿屋
+			if (selectButtonName.equals(button_List[3])) {
+				Main.action(4);
+				setMode(4);
+				inn();
+			}
+		}
+	}
+
 	public void actionPerformedSwitch1() {
 		switch (mode) {
 			case 10 ://探す
@@ -364,12 +396,12 @@ public class Controller {
 					setButtonName(null);
 					Main.event();
 					String[] text = Main.getDoText();
-					if(text.length <= count) {
-						toNormal();
-					}else {
+					if(count < text.length) {
 						setMessageEnt(text[count]);
 						adventure();
 						count = (count + 1);
+					}else {
+						toNormal();
 					}
 				}
 				break;
@@ -394,45 +426,6 @@ public class Controller {
 				musicReset();
 				eventLoop();
 				break;
-		}
-	}
-
-	private void adventure() {
-		Common.___logOut___("adventure() します");
-		normal_Display(Command.menu());
-	}
-
-	private void fieldAction(String selectButtonName) {
-		Common.___logOut___("fieldAction(" + selectButtonName +" ) します");
-		String[] button_List = Command.menu();
-		if (selectButtonName != null) {
-			// 探す
-			if (selectButtonName.equals(button_List[0])) {
-				Main.action(1);
-				setMessage("―――――" + Main.getName() + "は探検を続けた―――――");
-				setMode(10);
-				adventure();
-			}
-			// 使う
-			if (selectButtonName.equals(button_List[1])) {
-				Main.action(2);
-				setMessage("⇒どちらを使いますか？");
-				setMenu(new Object[]{"道具","能力"});
-				setMode(2);
-				use();
-			}
-			// 買い物
-			if (selectButtonName.equals(button_List[2])) {
-				Main.action(3);
-				setMode(3);
-				shop();
-			}
-			// 宿屋
-			if (selectButtonName.equals(button_List[3])) {
-				Main.action(4);
-				setMode(4);
-				inn();
-			}
 		}
 	}
 
@@ -1689,6 +1682,7 @@ public class Controller {
 
 	private TableSet shopList() {
 		Console.items();
+		Console.shop_Items();
 		return new TableSet(new Shop(),"価格");
 	}
 

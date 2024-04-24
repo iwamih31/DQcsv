@@ -33,4 +33,15 @@ public class Console {
 	public static void gold(int gold) {
 		System.out.print("[所持金＝ " + gold + "G ] ");
 	}
+
+	public static String shop_Items() {
+		String shop_Items = "";
+		Object[][] itemList = Shop.getItemList();
+		for (Object[] item : itemList) {
+			for (Object text : item) {
+				shop_Items += text;
+			}
+		}
+		return shop_Items;
+	}
 }

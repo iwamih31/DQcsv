@@ -127,8 +127,13 @@ public class Shop extends AbstractTableModel{
 		shopText = new String[]{ "また来てくださいね （*^o^*）" };
 	}
 
-	public static void  item( int clickItem ) {
-		System.out.println( clickItem );
+	public static String item( int clickItem ) {
+		String sItem = "";
+		for (Object text : itemList[clickItem]) {
+			sItem += text;
+		}
+		System.out.println( sItem );
+		return sItem;
 	}
 
 	public void setItemList(Object itemList[][]) {
@@ -180,6 +185,14 @@ public class Shop extends AbstractTableModel{
 
 	public static String[] getShopText() {
 		return shopText;
+	}
+
+	public Object[][] getShop() {
+		return shop;
+	}
+
+	public void setShop(Object[][] shop) {
+		this.shop = shop;
 	}
 }
 
