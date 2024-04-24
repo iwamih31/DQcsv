@@ -264,6 +264,17 @@ public class Controller {
 		change();
 	}
 
+	private void who() {
+		Common.___logOut___("who() します");
+		buttonName = null;
+		partySt();
+		info(goldList(),itemList(),null);
+		scene();
+		menu(Main.getpNa());
+		comment();
+		change();
+	}
+
 	private void menu(Object[] menu_List) {
 		set_Menu(menu_List);
 		view.menu(menu_List);
@@ -287,17 +298,10 @@ public class Controller {
 
 	private void fieldMenu(Object[] setMenu) {
 		Common.___logOut___("fieldMenu(String[] setMenu) します");
-		setButtonName(null);
-		partySt();
-		info(goldList(),itemList(),null);
-		scene();
-		menu(setMenu);
-		comment();
-		change();
+		display(setMenu);
 	}
 
 	private void display(Object[] setMenu) {
-		Common.___logOut___("fieldMenu(String[] setMenu) します");
 		TableSet[] list = info_List(mode);
 		setButtonName(null);
 		partySt();
@@ -1439,17 +1443,6 @@ public class Controller {
 				Common.___logOut___("戦闘後処理、未完了です");
 			}
 		}
-	}
-
-	private void who() {
-		Common.___logOut___("who() します");
-		buttonName = null;
-		partySt();
-		info(goldList(),itemList(),null);
-		scene();
-		menu(Main.getpNa());
-		comment();
-		change();
 	}
 
 	private void attack() {
