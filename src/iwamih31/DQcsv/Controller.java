@@ -1087,16 +1087,13 @@ public class Controller {
 		}
 	}
 
+	private String[] inn_Menu() {
+		return new String[]{ "はい", "いいえ", "状態確認", "復活の儀式" };
+	}
+
 	private void inn() {
 		Common.___logOut___("inn() します");
-		setButtonName(null);
-		partySt();
-		info(goldList(),itemList(),null);
-		scene();
-		Object[] innMenu = new Object[]{ "はい", "いいえ", "状態確認", "復活の儀式" };
-		menu(innMenu);
-		comment();
-		change();
+		display(inn_Menu());
 	}
 
 	private void status() {
@@ -1106,8 +1103,7 @@ public class Controller {
 		partyStAll();
 		info(goldList(),itemList(),null);
 		sceneBlank();
-		Object[] innMenu = new Object[]{ "はい", "いいえ", "状態確認", "復活の儀式" };
-		menu(innMenu);
+		menu(inn_Menu());
 		setMessageEnt("⇒ で戻る");
 		comment();
 		change();
