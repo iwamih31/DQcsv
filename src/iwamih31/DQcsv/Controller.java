@@ -84,34 +84,33 @@ public class Controller {
 			yName_Check();
 		}
 		if (buttonName.equals(ent)) {
-			repeatMusic("希望の歌");
-			Common.___logOut___("buttonName = " + getButtonName());
-			Common.___logOut___("count = " + count);
+			opening_Loop();
+		}
+	}
 
-			Common.___logOut___("story.getTextList().length = " + story.getTextList().length);
+	private void opening_Loop() {
+		Common.___logOut___("buttonName = " + getButtonName());
+		Common.___logOut___("count = " + count);
+		Common.___logOut___("story.getTextList().length = " + story.getTextList().length);
 
-			if (count < story.getTextList().length) {
-				setMessageEnt(story.getTextList()[count]);
-				if (count == 4) {
-					Main.setG(100);
-//						prologue();
-				}
-				if (count == 7) Main.fi.setHp(Main.getFiHP());
-				if (count == 9) Main.pr.setHp(Main.getPrHP());
-				if (count == 11) Main.mg.setHp(Main.getMgHP());
-				Main.pGet();
-				if (count < 5) {
-					prologue();
-				} else {
-					castle();
-				}
-				count++;
+		if (count < story.getTextList().length) {
+			setMessageEnt(story.getTextList()[count]);
+			if (count == 4) Main.setG(100);
+			if (count == 7) Main.fi.setHp(Main.getFiHP());
+			if (count == 9) Main.pr.setHp(Main.getPrHP());
+			if (count == 11) Main.mg.setHp(Main.getMgHP());
+			Main.pGet();
+			if (count < 5) {
+				prologue();
 			} else {
-				count = 0;
-				musicReset();
-				mapNumber = 0;
-				toNormal();
+				castle();
 			}
+			count++;
+		} else {
+			count = 0;
+			musicReset();
+			mapNumber = 0;
+			toNormal();
 		}
 	}
 
