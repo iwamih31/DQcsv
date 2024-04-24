@@ -183,7 +183,6 @@ public class Controller {
 				fieldAction(buttonName);
 				break;
 			case 2 ://使う
-				count = 0;
 				whichUse(buttonName);
 				break;
 			case 3 ://買い物
@@ -320,6 +319,7 @@ public class Controller {
 
 	private void whichUse(String selectButtonName) {
 		Common.___logOut___("whichUse(" + selectButtonName +") します");
+		count = 0;
 		// 道具
 		if (selectButtonName.equals(menu[0])) {
 			buttonName = null;
@@ -392,18 +392,7 @@ public class Controller {
 	public void actionPerformedSwitch1() {
 		switch (mode) {
 			case 10 ://探す
-				if (ent.equals(getButtonName())) {
-					setButtonName(null);
-					Main.event();
-					String[] text = Main.getDoText();
-					if(count < text.length) {
-						setMessageEnt(text[count]);
-						adventure();
-						count = (count + 1);
-					}else {
-						toNormal();
-					}
-				}
+				adventureLoop();
 				break;
 			case 11 ://良い人
 				musicReset();
@@ -426,6 +415,21 @@ public class Controller {
 				musicReset();
 				eventLoop();
 				break;
+		}
+	}
+
+	private void adventureLoop() {
+		if (ent.equals(getButtonName())) {
+			setButtonName(null);
+			Main.event();
+			String[] text = Main.getDoText();
+			if(count < text.length) {
+				setMessageEnt(text[count]);
+				adventure();
+				count = (count + 1);
+			}else {
+				toNormal();
+			}
 		}
 	}
 
