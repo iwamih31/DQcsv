@@ -266,13 +266,7 @@ public class Controller {
 
 	private void who() {
 		Common.___logOut___("who() します");
-		buttonName = null;
-		partySt();
-		info(goldList(),itemList(),null);
-		scene();
-		menu(Main.getpNa());
-		comment();
-		change();
+		display(Main.getpNa());
 	}
 
 	private void menu(Object[] menu_List) {
