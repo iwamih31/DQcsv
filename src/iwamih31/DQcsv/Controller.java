@@ -350,11 +350,6 @@ public class Controller {
 		display(new String[]{"道具","能力"});
 	}
 
-	private void adventure() {
-		Common.___logOut___("adventure() します");
-		display(Command.menu());
-	}
-
 	private void fieldAction(String selectButtonName) {
 		Common.___logOut___("fieldAction(" + selectButtonName +" ) します");
 		count = 0;
@@ -431,6 +426,11 @@ public class Controller {
 				toNormal();
 			}
 		}
+	}
+
+	private void adventure() {
+		Common.___logOut___("adventure() します");
+		display(Command.menu());
 	}
 
 	private void eventLoop() {
@@ -552,13 +552,7 @@ public class Controller {
 
 	private void item() {
 		Common.___logOut___("Item() します");
-		setButtonName(null);
-		partySt();
-		info(goldList(),itemList(),null);
-		scene();
-		menu(Item.menu());
-		comment();
-		change();
+		display(Item.menu());
 	}
 
 	private void fieldItem(String setButtonName) {
