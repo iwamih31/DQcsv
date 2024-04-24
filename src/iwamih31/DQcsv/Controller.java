@@ -60,35 +60,25 @@ public class Controller {
 		image_Map_URL = "image_map/";
 		image_Map_Type = ".png";
 		center_Image = "勇者";
-		que_YN("最初から始めますか？・・・");
+		select_File();
 	}
 
-	void que_YN(String question) { // 「はい」か「いいえ」の質問
-		view.que(question, ynList);
+	private void select_File() {
+		view.que("最初から始めますか？・・・", ynList);
 	}
 
 	private void load() {
 		Main.load();
-		setMapNumber(0);
-		x = 6;
-		y = 6;
 	}
 
 	private void opening() {
 		// マップ上の位置を初期化
 		position_Initial();
 		if (getButtonName().equals(ynList[0])) {
-			musicReset();
-			input("     主人公の名前は何にしますか？");
+			first_Time();
 		}
 		if (buttonName.equals(ynList[1])) {
-			musicReset();
-			mapChangeSound();
-			setMode(99);
-			load();
-			story = new Story();
-			setMessageEnt("");
-			field();
+			again();
 		}
 		if (buttonName.equals("OK")) {
 			int max_Bytes = 9;
@@ -140,6 +130,22 @@ public class Controller {
 				toNormal();
 			}
 		}
+	}
+
+	private void first_Time() {
+		musicReset();
+		input("     主人公の名前は何にしますか？");
+	}
+
+	private void again() {
+		musicReset();
+		mapChangeSound();
+		setMode(99);
+		setMapNumber(0);
+		load();
+		story = new Story();
+		setMessageEnt("");
+		field();
 	}
 
 	public void actionPerformed(String select) {
@@ -241,6 +247,7 @@ public class Controller {
 	}
 
 	private void position_Initial() {
+		Console._____OUT_____("position_Initial() します");
 		x = 6;
 		y = 6;
 	}
