@@ -133,7 +133,6 @@ public class Controller {
 			}
 		}
 		begin();
-
 	}
 
 	private void first_Time() {
@@ -299,6 +298,27 @@ public class Controller {
 		change();
 	}
 
+	private void normal_Display(Object[] setMenu) {
+		Common.___logOut___("fieldMenu(String[] setMenu) します");
+		TableSet[] list = info_List(mode);
+		setButtonName(null);
+		partySt();
+		info(list[0],list[1],list[2]);
+		scene();
+		menu(setMenu);
+		comment();
+		change();
+	}
+
+	private TableSet[] info_List(int mode) {
+		TableSet[] info_List = null;
+		switch(mode) {
+		default:
+			info_List = new TableSet[] {goldList(),itemList(),null};
+		}
+		return info_List;
+	}
+
 	private void use() {
 		Common.___logOut___("use() します");
 		setButtonName(null);
@@ -379,34 +399,22 @@ public class Controller {
 
 	private void adventure() {
 		Common.___logOut___("adventure() します");
-		setButtonName(null);
-		partySt();
-		info(goldList(),itemList(),null);
-		scene();
-		menu(Command.menu());
-		comment();
-		change();
+		normal_Display(Command.menu());
 	}
 
 	private void fieldAction(String selectButtonName) {
 		Common.___logOut___("fieldAction(" + selectButtonName +" ) します");
-		String[] menu = Command.menu();
+		String[] button_List = Command.menu();
 		if (selectButtonName != null) {
 			// 探す
-			if (selectButtonName.equals(menu[0])) {
-				repeatMusic("希望の歌");
-				setButtonName(null);
-				printMode();
+			if (selectButtonName.equals(button_List[0])) {
 				Main.action(1);
-				setMessageEnt("―――――" + Main.getName() + "は探検を続けた―――――");
+				setMessage("―――――" + Main.getName() + "は探検を続けた―――――");
 				setMode(10);
 				adventure();
-				setButtonName(ent);
 			}
 			// 使う
-			if (selectButtonName.equals(menu[1])) {
-				setButtonName(null);
-				printMode();
+			if (selectButtonName.equals(button_List[1])) {
 				Main.action(2);
 				setMessage("⇒どちらを使いますか？");
 				setMenu(new Object[]{"道具","能力"});
@@ -414,17 +422,13 @@ public class Controller {
 				use();
 			}
 			// 買い物
-			if (selectButtonName.equals(menu[2])) {
-				setButtonName(null);
-				printMode();
+			if (selectButtonName.equals(button_List[2])) {
 				Main.action(3);
 				setMode(3);
 				shop();
 			}
 			// 宿屋
-			if (selectButtonName.equals(menu[3])) {
-				setButtonName(null);
-				printMode();
+			if (selectButtonName.equals(button_List[3])) {
 				Main.action(4);
 				setMode(4);
 				inn();
@@ -953,17 +957,6 @@ public class Controller {
 				}
 				break;
 		}
-	}
-
-	private void set_Menu(Object[] menu_List) {
-		menu = menu_List;
-		String sMenu = "[";
-		for (Object item : menu) {
-			sMenu += (item + ", ");
-		}
-		sMenu += "]";
-		sMenu = sMenu.replace(", ]", "]");
-		Common.___logOut___(sMenu);
 	}
 
 	private void shop() {
@@ -1695,6 +1688,7 @@ public class Controller {
 	}
 
 	private TableSet shopList() {
+		Console.items();
 		return new TableSet(new Shop(),"価格");
 	}
 
@@ -1936,7 +1930,7 @@ public class Controller {
 				fieldAction(buttonName);
 				// count = 0;
 				actionPerformedSwitch();
-				button_Ent.doClick();
+				view.actionPerformed(ent);
 			} else {
 				// 移動先のRoleによって各処理を行う
 				int role = mapCenterRole(map);
@@ -2210,6 +2204,11 @@ public class Controller {
 
 	public void setMenu(Object[] menu) {
 		this.menu = menu;
+	}
+
+	private void set_Menu(Object[] menu_List) {
+		menu = menu_List;
+		Console.menu_List(menu_List);
 	}
 
 	public Object[] getMenu() {

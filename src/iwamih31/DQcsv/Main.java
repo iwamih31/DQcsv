@@ -194,7 +194,6 @@ public class Main extends AbstractTableModel implements Serializable{
 		case 2:
 			break;
 		case 3 :
-			Console.items();
 			break;
 		case 4:
 			innG();// /////////////////////////////宿代を計算

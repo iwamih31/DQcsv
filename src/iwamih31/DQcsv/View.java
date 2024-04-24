@@ -432,17 +432,21 @@ public class View extends JFrame implements ActionListener, KeyListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		// クリックされたボタン名を取得
+		String actionCommand = e.getActionCommand();
+		actionPerformed(actionCommand);
+	}
+
+	public void actionPerformed(String actionCommand) {
 		// キープッシュ音を鳴らす
 		pushSound();
-		// 押されたボタン名を取得
-		String select = e.getActionCommand();
 		// フォーカスをframeに持ってくる
 		frame.setFocusable(true);
 		Common.___logOut___("frameにフォーカスをあてました");
 		//キー入力の有効化
 		frame.addKeyListener(this);
 		Common.___logOut___("frameのキー入力を有効化しました");
-		controller.actionPerformed(select);
+		controller.actionPerformed(actionCommand);
 	}
 
 	void musicReset() {
