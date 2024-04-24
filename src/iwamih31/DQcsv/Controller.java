@@ -255,13 +255,8 @@ public class Controller {
 
 	private void field() {
 		Common.___logOut___("field() します");
-		setButtonName(null);
-		partySt();
-		info(goldList(),itemList(),null);
-		scene();
-		menu(new Object[]{});
-		comment();
-		change();
+		display(new Object[]{});
+
 	}
 
 	private void who() {
