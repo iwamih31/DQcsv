@@ -50,7 +50,7 @@ public class Controller {
 		service = new Service();
 	}
 
-	void start() { // 画面開始
+	void start() { // コントローラー開始
 		view = Main.getView();
 		ynList = new String[]{ "はい", "いいえ" };
 		entMark = (" ⇒ ");
@@ -69,6 +69,12 @@ public class Controller {
 
 	private void load() {
 		Main.load();
+	}
+
+	private void position_Initial() {
+		Console._____OUT_____("position_Initial() します");
+		x = 6;
+		y = 6;
 	}
 
 	private void opening() {
@@ -247,10 +253,26 @@ public class Controller {
 		prologue();
 	}
 
-	private void position_Initial() {
-		Console._____OUT_____("position_Initial() します");
-		x = 6;
-		y = 6;
+	void prologue() {
+		Common.___logOut___("prologue() します");
+		setButtonName(null);
+		partyStBlank();
+		info(goldList(),null,null);
+		scene();
+		menu(Command.menu());
+		comment();
+		change();
+	}
+
+	private void display(Object[] setMenu) {
+		TableSet[] list = info_List(mode);
+		setButtonName(null);
+		partySt();
+		info(list[0],list[1],list[2]);
+		scene();
+		menu(setMenu);
+		comment();
+		change();
 	}
 
 	private void field() {
@@ -282,17 +304,6 @@ public class Controller {
 	private void fieldMenu(Object[] setMenu) {
 		Common.___logOut___("fieldMenu(String[] setMenu) します");
 		display(setMenu);
-	}
-
-	private void display(Object[] setMenu) {
-		TableSet[] list = info_List(mode);
-		setButtonName(null);
-		partySt();
-		info(list[0],list[1],list[2]);
-		scene();
-		menu(setMenu);
-		comment();
-		change();
 	}
 
 	private TableSet[] info_List(int mode) {
@@ -1609,17 +1620,6 @@ public class Controller {
 				break;
 		}
 		return imageURL + drawItem + ".png";
-	}
-
-	void prologue() {
-		Common.___logOut___("prologue() します");
-		setButtonName(null);
-		partyStBlank();
-		info(goldList(),null,null);
-		scene();
-		menu(Command.menu());
-		comment();
-		change();
 	}
 
 	private void partyStBlank() {
