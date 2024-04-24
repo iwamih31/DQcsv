@@ -81,24 +81,7 @@ public class Controller {
 			again();
 		}
 		if (buttonName.equals("OK")) {
-			int max_Bytes = 9;
-			yName = null;
-			// 入力された文字列
-			String inputName = inputName();
-			while (yName == null) {
-				if (Common.isBelow_Character_Bytes(inputName, max_Bytes)) {
-					if (inputName.equals("")) inputName = Main.getyName();
-					Main.setyName(inputName);
-					yName = inputName;
-					Common.___logOut___("yName = " + yName);
-				} else {
-					Common.___logOut___("yName = " + yName);
-					buttonName.equals(null);
-					change();
-					input("もう少し短い名前でお願いします");
-				}
-			}
-			begin();
+			yName_Check();
 		}
 		if (buttonName.equals(ent)) {
 			repeatMusic("希望の歌");
@@ -130,6 +113,28 @@ public class Controller {
 				toNormal();
 			}
 		}
+	}
+
+	private void yName_Check() {
+		int max_Bytes = 9;
+		yName = null;
+		// 入力された文字列
+		String inputName = inputName();
+		while (yName == null) {
+			if (Common.isBelow_Character_Bytes(inputName, max_Bytes)) {
+				if (inputName.equals("")) inputName = Main.getyName();
+				Main.setyName(inputName);
+				yName = inputName;
+				Common.___logOut___("yName = " + yName);
+			} else {
+				Common.___logOut___("yName = " + yName);
+				buttonName.equals(null);
+				change();
+				input("もう少し短い名前でお願いします");
+			}
+		}
+		begin();
+
 	}
 
 	private void first_Time() {
