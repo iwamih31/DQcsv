@@ -2,16 +2,9 @@ package iwamih31.DQcsv;
 
 import java.awt.event.KeyEvent;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.UIManager;
-
 public class Controller {
 
-	JLabel ansLabel;
-	static JLabel display;
+
 	protected String value;
 	String op1;
 	String op2;
@@ -25,8 +18,6 @@ public class Controller {
 	Ex useEx;
 	private int imageCode;
 	private String cancel;
-	private JButton button_Ent;
-	private JButton[] menuButton;
 	private int menuNum;
 	private String imageURL;
 	private int mapNumber;
@@ -38,7 +29,7 @@ public class Controller {
 	private Object[] menu;
 	private int mode;
 	private String tex;
-	private JFrame frame;
+
 	private String entMark;
 	private String image_Map_URL;
 	private String image_Map_Type;
@@ -159,11 +150,6 @@ public class Controller {
 		story = new Story();
 		setMessageEnt("");
 		field();
-	}
-
-	private void mapChangeSound() {
-		Console._____OUT_____("mapChangeSound() します");
-		service.mapChangeSound();
 	}
 
 	public void actionPerformed(String select) {
@@ -1541,6 +1527,10 @@ public class Controller {
 		return map_Data;
 	}
 
+	private MapPiece[][] map_Data() {
+		return map_Data(getOriginalMap());
+	}
+
 	private String[][] map_Image(MapPiece[][] map_Data) {
 	String[][] map_Image = new String[map_Data.length][map_Data[0].length];
 	for (int i = 0; i < map_Data.length; i++) {
@@ -1838,9 +1828,9 @@ public class Controller {
 				Common.___logOut___(ent + "ボタンをクリックします");
 				pushSound(); // キープッシュ音を鳴らす
 				if(entMark.equals(ent)) {
-					button_Ent.doClick();
+					actionPerformed(ent);
 				} else {
-					menuButton[menuNum].doClick();
+					actionPerformed(String.valueOf(menu[menuNum]));
 				}
 				Common.___logOut___("buttonName = " + getButtonName());
 				break;
@@ -1880,13 +1870,17 @@ public class Controller {
 	}
 
 	private void moveMap(int[][] map, int moveX, int moveY) {
+
+		int after_X = x + moveX;
+		int after_Y = y + moveY;
+		// はみ出し修正
+		after_X = inRange(map[0].length, after_X);
+		after_Y = inRange(map.length, after_Y);
 		// 移動先が障害物でなければ移動する
-		if(isBarrier(moveX, moveY) == false) {
-			x += moveX;
-			y += moveY;
-			// はみ出し修正
-			x = inRange(map[0].length, x);
-			y = inRange(map.length, y);
+		if(isBarrier(after_X, after_Y) == false) {
+			position(after_X, after_Y);
+
+
 			Common.___logOut___("縦" + y + "横" + x + "に移動しました");
 			// mapNumberが 1 以外でmapCenterRole()が 4, 5, 8, 9 以外の場合
 			if(isDanger()) {
@@ -2042,16 +2036,13 @@ public class Controller {
 		return newNum;
 	}
 
-	private boolean isBarrier(int moveX, int moveY) {
-		int[][] map = getOriginalMap();
-		int[] mapCenter = centerXY(map);
-		int nextX = mapCenter[0] + moveX;
-		int nextY = mapCenter[1] + moveY;
+	private boolean isBarrier(int X, int Y) {
+		Console._____OUT_____("mapNumber = " + mapNumber);
+		Console.target_Position(X, Y);
 		boolean isBarrier = false;
-		MapPiece[][] mapData = map_Data(map);
-		if (mapData[nextY][nextX].getRole() < 1 ) {
-			isBarrier = true;
-		}
+		int role = map_Data()[Y][X].getRole();
+		Console.role(role);
+		if (role < 1 ) isBarrier = true;
 		Console._____OUT_____("isBarrier = " + isBarrier);
 		return isBarrier;
 	}
@@ -2079,48 +2070,16 @@ public class Controller {
 	}
 
 	public String inpDS(String s) {
-		UIManager.put("OptionPane.okButtonText", "OK");
-		UIManager.put("OptionPane.cancelButtonText", "Cancel");
-		do {
-			value = JOptionPane.showInputDialog(s);
-			if (value == null) {// Cancelボタンが押された時
-				display.setText("取消されました。");
-				break;
-			}
-		} while (value.equals(null));
-		if (value.equals("")) {
-		} else {
-			display.setText(value + " ");
-		}
-		return value;
+		return view.inpDS(s);
 	}
 
 	public int inpDI(String s) {
-		UIManager.put("OptionPane.okButtonText", "OK");
-		UIManager.put("OptionPane.cancelButtonText", "Cancel");
-		do {
-			value = JOptionPane.showInputDialog(s);
-			if (value == null) {// Cancelボタンが押された時
-				display.setText("取消されました。");
-				break;
-			}
-		} while (value.equals(null));
-		if (value.equals("")) {
-			display.setText("数値を入力してください。");
-			inpDI(s);
-		} else {
-			display.setText(value + " ");
-		}
-		int r = Integer.parseInt(value);
-		return r;
+		return view.inpDI(s);
 	}
 
-	public void setFrame(JFrame frame) {
-		this.frame = frame;
-	}
-
-	public JFrame getFrame() {
-		return frame;
+	private void mapChangeSound() {
+		Console._____OUT_____("mapChangeSound() します");
+		service.mapChangeSound();
 	}
 
 	public static void rem() {

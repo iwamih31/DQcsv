@@ -48,4 +48,12 @@ public class Console {
 	public static void position(int x, int y) {
 		_____OUT_____("[ x = " + x + ", y = " + y + " ]");
 	}
+
+	public static void target_Position(int x, int y) {
+		_____OUT_____("ターゲット [ x = " + x + ", y = " + y + " ]");
+	}
+
+	public static void role(int role) {
+		_____OUT_____("role = " + role);
+	}
 }
