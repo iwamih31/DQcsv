@@ -1,5 +1,7 @@
 package iwamih31.DQcsv;
 
+import javax.sound.sampled.LineUnavailableException;
+
 public class Service {
 
 	public int[][] getOriginalMap(int mapNumber) {
@@ -70,5 +72,23 @@ public class Service {
 				break;
 		}
 		return originalMap;
+	}
+
+	private void sound(float frequency, int soundLength) {
+		try {
+			new Sound(frequency, soundLength);
+		} catch (LineUnavailableException e) {
+			e.printStackTrace();
+		}
+	}
+
+	void pushSound() {
+//			Toolkit.getDefaultToolkit().beep(); // ビープ音を鳴らす
+		sound(440f,100);
+	}
+
+	void mapChangeSound() {
+		sound(100f,150);
+		sound(100f,150);
 	}
 }

@@ -2,7 +2,6 @@ package iwamih31.DQcsv;
 
 import java.awt.event.KeyEvent;
 
-import javax.sound.sampled.LineUnavailableException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -160,6 +159,11 @@ public class Controller {
 		story = new Story();
 		setMessageEnt("");
 		field();
+	}
+
+	private void mapChangeSound() {
+		Console._____OUT_____("mapChangeSound() します");
+		service.mapChangeSound();
 	}
 
 	public void actionPerformed(String select) {
@@ -1868,16 +1872,7 @@ public class Controller {
 	}
 
 	private void pushSound() {
-//			Toolkit.getDefaultToolkit().beep(); // ビープ音を鳴らす
-		sound(440f,100);
-	}
-
-	private void sound(float frequency, int soundLength) {
-		try {
-			new Sound(frequency, soundLength);
-		} catch (LineUnavailableException e) {
-			e.printStackTrace();
-		}
+		service.pushSound();
 	}
 
 	private void selectStyle() {
@@ -2014,12 +2009,7 @@ public class Controller {
 
 	public void setMapNumber(int mapNumber) {
 		this.mapNumber = mapNumber;
-		mapChangeSound();
-	}
-
-	private void mapChangeSound() {
-		sound(100f,150);
-		sound(100f,150);
+		service.mapChangeSound();
 	}
 
 	private boolean isDanger() {
