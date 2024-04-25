@@ -864,7 +864,7 @@ public class Battle extends AbstractTableModel{
 		System.out.println(")>");
 		System.out.println("");
 		System.out.print("<所持金(" + Main.getG() + "Ｇ)> ");
-		switch (Main.bHp) {
+		switch (Main.getbHp()) {
 		case 3:
 			System.out.println("");
 			break;

@@ -1783,7 +1783,7 @@ public class Controller {
 		Common.___logOut___("buttonName = " + getButtonName());
 		Common.___logOut___("pressedKey = " + pressedKey);
 		Common.___logOut___("keyEvent = " + keyEvent);
-		if (mode == 1 || mode == 6 || mode == 7) {
+		if (mode == 1 || mode == 6 || mode == 7) { // マップ移動時
 			int moveX = 0;
 			int moveY = 0;
 			switch(pressedKey) {
@@ -1825,7 +1825,7 @@ public class Controller {
 				fieldAction(getButtonName());
 				break;
 			}
-		}else {
+		}else { // イベント発動時
 			switch(pressedKey) {
 			case KeyEvent.VK_ENTER:
 			case KeyEvent.VK_SPACE:
@@ -1864,6 +1864,7 @@ public class Controller {
 				break;
 			}
 		}
+		keyPressed(null);
 	}
 
 	private void pushSound() {
@@ -2056,12 +2057,13 @@ public class Controller {
 		int[] mapCenter = centerXY(map);
 		int nextX = mapCenter[0] + moveX;
 		int nextY = mapCenter[1] + moveY;
-		boolean barrier = false;
+		boolean isBarrier = false;
 		MapPiece[][] mapData = map_Data(map);
 		if (mapData[nextY][nextX].getRole() < 1 ) {
-			barrier = true;
+			isBarrier = true;
 		}
-		return barrier;
+		Console._____OUT_____("isBarrier = " + isBarrier);
+		return isBarrier;
 	}
 
 	private int mapCenterRole(int[][] map) {

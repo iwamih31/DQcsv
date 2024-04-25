@@ -89,6 +89,7 @@ public class View extends JFrame implements ActionListener, KeyListener {
 	private CardLayout cardLayout;
 	private JPanel clear;
 	private JLabel space;
+	private String app_Name;
 
 	public View(Object[] mList) {
 		super("メニュー");
@@ -98,10 +99,11 @@ public class View extends JFrame implements ActionListener, KeyListener {
 	public View(String title) {
 		super(title);
 		controller = Main.controller;
-		start(title);
+		app_Name = title;
+		start();
 	}
 
-	private void start(String title) {
+	private void start() {
 
 //		setMode(0);
 		// ディスプレイサイズを基準に、横1％、縦1％、フォントサイズを決定
@@ -132,7 +134,7 @@ public class View extends JFrame implements ActionListener, KeyListener {
 		space = labelSet("                                       ");
 		music = null;
 		repeatMusic("オープニング");
-		outer();
+		outer(app_Name);
 		Console._____OUT_____("テスト");
 	}
 
@@ -230,12 +232,12 @@ public class View extends JFrame implements ActionListener, KeyListener {
 		return panelSet;
 	}
 
-	private void outer() {
+	private void outer(String title) {
 		Console._____OUT_____("outer() します");
 		if (frame != null) {
 			frame.setVisible(false);
 		}
-		frame = new JFrame("RPG");
+		frame = new JFrame(title);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(w*100, h*100);
 		frame.getContentPane().setBackground(Color.BLACK);
@@ -784,7 +786,6 @@ public class View extends JFrame implements ActionListener, KeyListener {
 
 	public void keyPressed(KeyEvent keyEvent) {
 		controller.keyPressed(keyEvent);
-		keyPressed(null);
 	}
 
 	private void pushSound() {

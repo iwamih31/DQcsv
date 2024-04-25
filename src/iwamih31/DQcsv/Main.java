@@ -18,7 +18,9 @@ import javax.swing.table.AbstractTableModel;
 
 public class Main extends AbstractTableModel implements Serializable{
 
-	static String sFile  = "sData.txt";
+	private static String app_Name  = "DQcsv";
+
+	private static String sFile  = "sData.txt";
 
 	private static String yName = "おぬし";
 
@@ -28,7 +30,7 @@ public class Main extends AbstractTableModel implements Serializable{
 
 	private static String mName = "魔物たち";
 
-	static int bHp = 3;
+	private static int bHp = 3;
 
 	private static String bName = "竜王";
 
@@ -93,7 +95,7 @@ public class Main extends AbstractTableModel implements Serializable{
 		g = 0;
 
 		// セーブ用ファイル作成
-		File newfile = new File("sData.txt");
+		File newfile = new File(sFile);
 		try {
 			newfile.createNewFile();
 		} catch (IOException e) {
@@ -103,7 +105,7 @@ public class Main extends AbstractTableModel implements Serializable{
 
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				view = new View("RPG");
+				view = new View(app_Name);
 				controller.start();
 			}
 		});
@@ -810,5 +812,9 @@ public class Main extends AbstractTableModel implements Serializable{
 
 	public static Battle getBat() {
 		return bat;
+	}
+
+	public static int getbHp() {
+		return bHp;
 	}
 }
