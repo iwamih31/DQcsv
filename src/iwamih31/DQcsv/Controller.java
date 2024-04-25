@@ -2045,7 +2045,6 @@ public class Controller {
 		Console._____OUT_____("mapNumber = " + mapNumber);
 		Console.target_Position(target_X, target_Y);
 		boolean isBarrier = false;
-//		int role = map_Data()[Y][X].getRole();
 		int role = role(target_X, target_Y);
 		if (role < 1 ) isBarrier = true;
 		Console._____OUT_____("isBarrier = " + isBarrier);
