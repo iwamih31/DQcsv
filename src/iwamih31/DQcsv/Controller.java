@@ -1528,7 +1528,8 @@ public class Controller {
 	}
 
 	private MapPiece[][] map_Data() {
-		return map_Data(getOriginalMap());
+		int[][] map = shift_Map(getOriginalMap(), x, y);
+		return map_Data(map);
 	}
 
 	private String[][] map_Image(MapPiece[][] map_Data) {
@@ -1676,7 +1677,7 @@ public class Controller {
 			case 7:
 			case 10:
 				setBackPanel(imageURL + "フィールド.png");
-				map2D(getOriginalMap());
+				map2D();
 				break;
 			case 5:
 				setBackPanel(imageURL + "バトル.png");
@@ -1694,10 +1695,14 @@ public class Controller {
 		view.setEventImage(eventImage);
 	}
 
-	private void map2D(int[][] originalMap) {
-		int[][] map = shift_Map(originalMap, x, y);
-		String[][] map_Image = map_Image(map);
+	private void map2D(String[][] map_Image) {
 		view.set_Map2D(map_Image);
+	}
+
+	private void map2D() {
+		int[][] map = shift_Map(getOriginalMap(), x, y);
+		String[][] map_Image = map_Image(map);
+		map2D(map_Image);
 	}
 
 	private void setBackPanel(String string) {
@@ -2036,15 +2041,22 @@ public class Controller {
 		return newNum;
 	}
 
-	private boolean isBarrier(int X, int Y) {
+	private boolean isBarrier(int target_X, int target_Y) {
 		Console._____OUT_____("mapNumber = " + mapNumber);
-		Console.target_Position(X, Y);
+		Console.target_Position(target_X, target_Y);
 		boolean isBarrier = false;
-		int role = map_Data()[Y][X].getRole();
-		Console.role(role);
+//		int role = map_Data()[Y][X].getRole();
+		int role = role(target_X, target_Y);
 		if (role < 1 ) isBarrier = true;
 		Console._____OUT_____("isBarrier = " + isBarrier);
 		return isBarrier;
+	}
+
+	private int role(int x, int y) {
+		int[][] shift_Map = shift_Map(getOriginalMap(), x, y);
+		int role = mapCenterRole(shift_Map);
+		Console.role(role);
+		return role;
 	}
 
 	private int mapCenterRole(int[][] map) {
