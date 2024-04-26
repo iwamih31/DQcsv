@@ -1464,45 +1464,7 @@ public class Controller {
 	}
 
 	private MapPiece mapPiece(int piece_Number) {
-		MapPiece mapPiece = null;
-		switch (piece_Number) {
-			case 0 :
-				String mapImage = "砂";
-				if(mapNumber == 2) mapImage = "闇";
-				mapPiece = new MapPiece(mapImage, 1);
-				break;
-			case 1 :
-				mapPiece = new MapPiece("草", 2);
-				break;
-			case 2 :
-				mapPiece = new MapPiece("山", 0);
-				break;
-			case 3 :
-				mapPiece = new MapPiece("海", 0);
-				break;
-			case 4 :
-				mapPiece = new MapPiece("洞窟", 4);
-				break;
-			case 5 :
-				mapPiece = new MapPiece("洞窟", 5); // 階段（入口）
-				break;
-			case 6 :
-				mapPiece = new MapPiece("山", 2);
-				break;
-			case 7 :
-				mapPiece = new MapPiece("宝箱", 7);
-				break;
-			case 8 :
-				mapPiece = new MapPiece("草", 8); // 扉（出口）
-				break;
-			case 9 :
-				mapPiece = new MapPiece("城", 9);
-				break;
-			default :
-				mapPiece = new MapPiece("砂", 0);
-				break;
-		}
-		return mapPiece;
+		return service.mapPiece(piece_Number, piece_Number);
 	}
 
 	private int[][] shift_Map(int[][] originalMap, int x, int y) {
@@ -1989,7 +1951,7 @@ public class Controller {
 					setMapNumber(1); // 城MAPへ移動
 					// 城入口位置
 					x=0;
-					y=3;
+					y=5;
 					field(6);
 				}
 				break;
