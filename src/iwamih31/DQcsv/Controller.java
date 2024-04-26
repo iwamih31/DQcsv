@@ -110,6 +110,7 @@ public class Controller {
 		} else {
 			count = 0;
 			musicReset();
+			mapChangeSound();
 			mapNumber = 0;
 			toNormal();
 		}
@@ -143,7 +144,7 @@ public class Controller {
 
 	private void again() {
 		musicReset();
-		mapChangeSound();
+//		mapChangeSound();
 		setMode(99);
 		setMapNumber(0);
 		load();
@@ -236,6 +237,7 @@ public class Controller {
 				field();
 			} else {
 				musicReset();
+				mapChangeSound();
 				toNormal();
 			}
 		}
@@ -278,7 +280,7 @@ public class Controller {
 
 	private void who() {
 		Common.___logOut___("who() します");
-		display(Main.getpNa());
+		display(menu);
 	}
 
 	private void menu(Object[] menu_List) {
@@ -1884,8 +1886,6 @@ public class Controller {
 		// 移動先が障害物でなければ移動する
 		if(isBarrier(after_X, after_Y) == false) {
 			position(after_X, after_Y);
-
-
 			Common.___logOut___("縦" + y + "横" + x + "に移動しました");
 			// mapNumberが 1 以外でmapCenterRole()が 4, 5, 8, 9 以外の場合
 			if(isDanger()) {
@@ -1897,7 +1897,7 @@ public class Controller {
 				view.actionPerformed(ent);
 			} else {
 				// 移動先のRoleによって各処理を行う
-				int role = mapCenterRole(map);
+				int role = mapCenterRole();
 				doRole(role);
 			}
 			buttonName = null;
@@ -1929,7 +1929,6 @@ public class Controller {
 					// 洞窟の位置
 					x=0;
 					y=0;
-					musicReset();
 					field(7);
 				} else {
 					Common.___logOut___("洞窟MAPへ移動します");
@@ -1937,7 +1936,6 @@ public class Controller {
 					// 洞窟入口位置
 					x=7;
 					y=7;
-					musicReset();
 					field(7);
 				}
 				break;
@@ -1949,7 +1947,6 @@ public class Controller {
 					// 洞窟の位置
 					x=6;
 					y=6;
-					musicReset();
 					toNormal();
 				} else {
 					Common.___logOut___("城2階MAPへ移動します");
@@ -1957,7 +1954,6 @@ public class Controller {
 					// 城2階階段位置
 					x=0;
 					y=0;
-					musicReset();
 					field(6);
 				}
 				break;
@@ -1969,16 +1965,14 @@ public class Controller {
 					// 洞窟の位置
 					x=8;
 					y=8;
-					musicReset();
 					toNormal();
 				} else {
 					Common.___logOut___("平原MAPへ移動します");
 					setMapNumber(0); // 平原MAPへ移動
 					// 城位置
-				x=6;
-				y=6;
-				musicReset();
-				toNormal();
+					x=6;
+					y=6;
+					toNormal();
 				}
 				break;
 			case 9:
@@ -1989,15 +1983,13 @@ public class Controller {
 					// 城位置
 					x=6;
 					y=6;
-					musicReset();
 					toNormal();
-				} else {
+				} else { // それ以外
 					Common.___logOut___("城MAPへ移動します");
 					setMapNumber(1); // 城MAPへ移動
 					// 城入口位置
 					x=0;
 					y=3;
-					musicReset();
 					field(6);
 				}
 				break;
@@ -2008,6 +2000,7 @@ public class Controller {
 
 	public void setMapNumber(int mapNumber) {
 		this.mapNumber = mapNumber;
+		musicReset();
 		service.mapChangeSound();
 	}
 
@@ -2060,7 +2053,7 @@ public class Controller {
 
 	private int mapCenterRole(int[][] map) {
 		MapPiece[][] map_Data = map_Data(map);
-//			map2D(map);
+//			map2D();
 		int[] mapCenter = centerXY(map);
 		int nextX = mapCenter[0];
 		int nextY = mapCenter[1];
@@ -2068,7 +2061,7 @@ public class Controller {
 	}
 
 	private int mapCenterRole() {
-		int[][] map = getOriginalMap();
+		int[][] map = shift_Map(getOriginalMap(), x, y);
 		return mapCenterRole(map);
 	}
 
