@@ -159,17 +159,17 @@ public class Service {
 	int[] next_Map(int mapNumber, int x, int y) {
 		int[] next_Map = {0, 0, 0}; // {next_MapNumber, next_X, next_Y}
 		switch (mapNumber) {
-			case 0 : // フィールドA
+			case 0 : // 今 フィールドA
 				// 城A
-				if (x == 6 && y == 6) next_Map = new int[] {1, 0, 5}; // 城A 1階 正面出口
+				if (x == 6 && y == 6) next_Map = new int[] {1, 0, 5}; // 城A 1階 正面出口へ
 				break;
-			case 1 : // 城A 1階
+			case 1 : // 今 城A 1階
 				// 正面出口
 				if (x == 0 && y == 6) next_Map = new int[] {0, 6, 6}; // フィールドA X6 Y6
 				// 洞窟A
-				if (x == -1 && y == 5) next_Map = new int[] {0, 6, 6}; // 洞窟A 地下1階 入口
+				if (x == -1 && y == 5) next_Map = new int[] {2, 7, 7}; // 洞窟A 地下1階 入口
 				break;
-			case 2 : // 洞窟A 地下1階
+			case 2 : // 今 洞窟A 地下1階
 				// 入口
 				if (x == 0 && y == 0) next_Map = new int[] {1, -1, 5}; // 城A 1階 洞窟A
 				break;
