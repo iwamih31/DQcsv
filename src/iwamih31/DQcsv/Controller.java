@@ -1464,7 +1464,9 @@ public class Controller {
 	}
 
 	private MapPiece mapPiece(int piece_Number) {
-		return service.mapPiece(piece_Number, piece_Number);
+		Console._____OUT_____("mapNumber = " + mapNumber);
+		Console._____OUT_____("piece_Number = " + piece_Number);
+		return service.mapPiece(mapNumber, piece_Number);
 	}
 
 	private int[][] shift_Map(int[][] originalMap, int x, int y) {
@@ -1655,6 +1657,10 @@ public class Controller {
 		view.scene();
 	}
 
+	private void sceneBlank() {
+		view.sceneBlank();
+	}
+
 	private void setEventImage(String eventImage) {
 		view.setEventImage(eventImage);
 	}
@@ -1728,10 +1734,6 @@ public class Controller {
 		if (i * 10000 <= mode && mode < (i + 1) * 10000) imageCode = i;
 	}
 
-	private void sceneBlank() {
-		view.sceneBlank();
-	}
-
 	private void comment() {
 		view.comment();
 	}
@@ -1756,7 +1758,7 @@ public class Controller {
 			case KeyEvent.VK_5:
 				System.out.println("上が押されました");
 				moveY--;
-				moveMap(map, moveX, moveY);
+				move_Map(map, moveX, moveY);
 				break;
 			case KeyEvent.VK_KP_DOWN:
 			case KeyEvent.VK_DOWN:
@@ -1764,21 +1766,21 @@ public class Controller {
 			case KeyEvent.VK_0:
 				System.out.println("下が押されました");
 				moveY++;
-				moveMap(map, moveX, moveY);
+				move_Map(map, moveX, moveY);
 				break;
 			case KeyEvent.VK_KP_LEFT:
 			case KeyEvent.VK_LEFT:
 			case KeyEvent.VK_4:
 				System.out.println("左が押されました");
 				moveX--;
-				moveMap(map, moveX, moveY);
+				move_Map(map, moveX, moveY);
 				break;
 			case KeyEvent.VK_KP_RIGHT:
 			case KeyEvent.VK_RIGHT:
 			case KeyEvent.VK_6:
 				System.out.println("右が押されました");
 				moveX++;
-				moveMap(map, moveX, moveY);
+				move_Map(map, moveX, moveY);
 				break;
 			default:
 				System.out.println(keyName + "KEYが押されました(mode = 1)");
@@ -1838,7 +1840,7 @@ public class Controller {
 		view.selectStyle();
 	}
 
-	private void moveMap(int[][] map, int moveX, int moveY) {
+	private void move_Map(int[][] map, int moveX, int moveY) {
 
 		int after_X = x + moveX;
 		int after_Y = y + moveY;
@@ -1849,19 +1851,9 @@ public class Controller {
 		if(isBarrier(after_X, after_Y) == false) {
 			position(after_X, after_Y);
 			Common.___logOut___("縦" + y + "横" + x + "に移動しました");
-			// mapNumberが 1 以外でmapCenterRole()が 4, 5, 8, 9 以外の場合
-			if(isDanger()) {
-				// 移動先でイベント発動
-				buttonName = Command.menu()[0];
-				fieldAction(buttonName);
-				// count = 0;
-				actionPerformedSwitch();
-				view.actionPerformed(ent);
-			} else {
-				// 移動先のRoleによって各処理を行う
-				int role = mapCenterRole();
-				doRole(role);
-			}
+			// 移動先のRoleによって各処理を行う
+			int role = mapCenterRole();
+			doRole(role);
 			buttonName = null;
 		} else {
 			Common.___logOut___("そちらへは移動できません");
@@ -1881,104 +1873,65 @@ public class Controller {
 		actionPerformedSwitch5();
 	}
 
+	private void change_Map() {
+		int[] next_Map = service.next_Map(mapNumber, x, y);
+		setMapNumber(next_Map[0]);
+		position(next_Map[1], next_Map[2]);
+		switch (next_Map[0]) {
+			case 0:
+				toNormal();
+				return;
+			case 1:
+				field(6);
+				return;
+			case 2:
+				field(7);
+				return;
+		}
+	}
+
 	private void doRole(int role) {
 		switch(role) {
 			case 4:
-				// 洞窟
-				if(mapNumber == 2) { // ダンジョン内の場合
-					Common.___logOut___("地下2階MAPへ移動します");
-					setMapNumber(4); // 地下2階MAPへ移動
-					// 洞窟の位置
-					x=0;
-					y=0;
-					field(7);
-				} else {
-					Common.___logOut___("洞窟MAPへ移動します");
-					setMapNumber(2); // 洞窟MAPへ移動
-					// 洞窟入口位置
-					x=7;
-					y=7;
-					field(7);
-				}
-				break;
 			case 5:
-				// 階段（入口）
-				if(mapNumber == 2) { // ダンジョン内の場合
-					Common.___logOut___("平原MAPへ移動します");
-					setMapNumber(0); // 平原MAPへ移動
-					// 洞窟の位置
-					x=6;
-					y=6;
-					toNormal();
-				} else {
-					Common.___logOut___("城2階MAPへ移動します");
-					setMapNumber(3); // 城2階MAPへ移動
-					// 城2階階段位置
-					x=0;
-					y=0;
-					field(6);
-				}
-				break;
 			case 8:
-				// 扉（出口）
-				if(mapNumber == 2) { // ダンジョン内の場合
-					Common.___logOut___("平原MAPへ移動します");
-					setMapNumber(0); // 平原MAPへ移動
-					// 洞窟の位置
-					x=8;
-					y=8;
-					toNormal();
-				} else {
-					Common.___logOut___("平原MAPへ移動します");
-					setMapNumber(0); // 平原MAPへ移動
-					// 城位置
-					x=6;
-					y=6;
-					toNormal();
-				}
-				break;
 			case 9:
-				// 城
-				if(mapNumber == 1) { // 城内の場合
-					Common.___logOut___("平原MAPへ移動します");
-					setMapNumber(0); // 平原MAPへ移動
-					// 城位置
-					x=6;
-					y=6;
-					toNormal();
-				} else { // それ以外
-					Common.___logOut___("城MAPへ移動します");
-					setMapNumber(1); // 城MAPへ移動
-					// 城入口位置
-					x=0;
-					y=5;
-					field(6);
-				}
+				// 別マップへ移動
+				change_Map();
 				break;
 			default:
+				// mapNumberが 1 以外の場合
+				if (isDanger()) {
+					// 移動先でイベント発動
+					do_Event();
+				}
 		}
 		actionPerformedSwitch();
 	}
 
+	private void do_Event() {
+		buttonName = Command.menu()[0];
+		fieldAction(buttonName);
+		actionPerformedSwitch();
+		view.actionPerformed(ent);
+	}
+
 	public void setMapNumber(int mapNumber) {
+		Console._____OUT_____(map_Name(mapNumber) + " に移動します");
 		this.mapNumber = mapNumber;
-		musicReset();
+		Console._____OUT_____("mapNumber = " + mapNumber);
 		service.mapChangeSound();
+	}
+
+	private String map_Name(int mapNumber) {
+		return service.map_Name(mapNumber);
 	}
 
 	private boolean isDanger() {
 		boolean isDanger = true;
 		switch(mapNumber) {
 			case 1:
-				isDanger = false;
-				break;
-			default:
-		}
-		switch(mapCenterRole()) {
-			case 4:
-			case 5:
-			case 8:
-			case 9:
+
 				isDanger = false;
 				break;
 			default:
@@ -2045,6 +1998,7 @@ public class Controller {
 
 	private void mapChangeSound() {
 		Console._____OUT_____("mapChangeSound() します");
+		musicReset();
 		service.mapChangeSound();
 	}
 
