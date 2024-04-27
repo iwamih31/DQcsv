@@ -1874,19 +1874,22 @@ public class Controller {
 	}
 
 	private void change_Map() {
+
 		int[] next_Map = service.next_Map(mapNumber, x, y);
 		setMapNumber(next_Map[0]);
 		position(next_Map[1], next_Map[2]);
 		switch (next_Map[0]) {
 			case 0:
 				toNormal();
-				return;
+				break;
 			case 1:
 				field(6);
-				return;
+				break;
 			case 2:
 				field(7);
-				return;
+				break;
+			default:
+				toNormal();
 		}
 	}
 
@@ -1920,7 +1923,7 @@ public class Controller {
 		Console._____OUT_____(map_Name(mapNumber) + " に移動します");
 		this.mapNumber = mapNumber;
 		Console._____OUT_____("mapNumber = " + mapNumber);
-		service.mapChangeSound();
+		mapChangeSound();
 	}
 
 	private String map_Name(int mapNumber) {
