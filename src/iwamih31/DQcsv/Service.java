@@ -4,7 +4,7 @@ import javax.sound.sampled.LineUnavailableException;
 
 public class Service {
 
-	public int[][] getOriginalMap(int mapNumber) {
+	public int[][] getOriginalMap(int map_Number) {
 		int[][] originalMap = null;
 		int[][] field1_Map = {
 				{4,2,3,3,3,3,1,1,1,2,2,1,1,3,3},
@@ -57,7 +57,7 @@ public class Service {
 				{2,0,0,0,0,0,2,0,2,2,2,2,2,0,0},
 				{2,2,2,2,2,2,2,0,2,0,0,0,0,0,4}
 		};
-		switch (mapNumber) {
+		switch (map_Number) {
 			case 0:
 				originalMap = field1_Map;
 				break;
@@ -76,88 +76,65 @@ public class Service {
 
 	MapPiece mapPiece(int map_Number, int piece_Number) {
 		switch (map_Number) {
-			case 0: // フィールド1
+			case 0: // フィールドA
 				switch (piece_Number) {
-					case 0 :
-						return new MapPiece("砂", 1); // 道
-					case 1 :
-						return new MapPiece("草", 2); // 魔物出現率アップ
-					case 2 :
-						return new MapPiece("山", 0); // 障害物
-					case 3 :
-						return new MapPiece("海", 0); // 障害物
-					case 4 :
-						return new MapPiece("洞窟", 4); // 別マップへ
-					case 5 :
-						return new MapPiece("洞窟", 5); // 階段（入口）
-					case 6 :
-						return new MapPiece("山", 2);
-					case 7 :
-						return new MapPiece("砂", 0); // 通れない道
-					case 8 :
-						return new MapPiece("草", 8); // 扉（出口）
-					case 9 :
-						return new MapPiece("城", 9);
-					default :
-						return new MapPiece("砂", 0); // 通れない道
+					case 0 :return new MapPiece("砂", 1); // 道
+					case 1 :return new MapPiece("草", 2); // 魔物出現率アップ
+					case 2 :return new MapPiece("山", 0); // 障害物
+					case 3 :return new MapPiece("海", 0); // 障害物
+					case 4 :return new MapPiece("洞窟", 4); // 別マップへ
+					case 5 :return new MapPiece("洞窟", 5); // 階段（入口）
+					case 6 :return new MapPiece("山", 2);
+					case 7 :return new MapPiece("砂", 0); // 通れない道
+					case 8 :return new MapPiece("草", 8); // 扉（出口）
+					case 9 :return new MapPiece("城", 9);
+					default :return new MapPiece("砂", 0); // 通れない道
 			}
-			case 1: // 城1
+			case 1: // 城A 1階
 				switch (piece_Number) {
-					case 0 :
-						return new MapPiece("砂", 1);
-					case 1 :
-						return new MapPiece("草", 2);
-					case 2 :
-						return new MapPiece("山", 0);
-					case 3 :
-						return new MapPiece("海", 0);
-					case 4 :
-						return new MapPiece("洞窟", 4);
-					case 5 :
-						return new MapPiece("洞窟", 5); // 階段（入口）
-					case 6 :
-						return new MapPiece("山", 2);
-					case 7 :
-						return new MapPiece("宝箱", 7);
-					case 8 :
-						return new MapPiece("草", 8); // 扉（出口）
-					case 9 :
-						return new MapPiece("城", 9);
-					default :
-						return new MapPiece("砂", 0);
+					case 0 :return new MapPiece("砂", 1);
+					case 1 :return new MapPiece("草", 2);
+					case 2 :return new MapPiece("山", 0);
+					case 3 :return new MapPiece("海", 0);
+					case 4 :return new MapPiece("洞窟", 4);
+					case 5 :return new MapPiece("洞窟", 5); // 階段（入口）
+					case 6 :return new MapPiece("山", 2);
+					case 7 :return new MapPiece("宝箱", 7);
+					case 8 :return new MapPiece("草", 8); // 扉（出口）
+					case 9 :return new MapPiece("城", 9);
+					default :return new MapPiece("砂", 0);
 			}
 			case 2: // 洞窟1
 				switch (piece_Number) {
-					case 0 :
-						return new MapPiece("闇", 1); // 通路
-					case 1 :
-						return new MapPiece("草", 2);
-					case 2 :
-						return new MapPiece("山", 0); // 壁
-					case 3 :
-						return new MapPiece("海", 0); // 水
-					case 4 :
-						return new MapPiece("洞窟", 4);
-					case 5 :
-						return new MapPiece("洞窟", 5); // 階段（入口）
-					case 6 :
-						return new MapPiece("山", 2);
-					case 7 :
-						return new MapPiece("宝箱", 7);
-					case 8 :
-						return new MapPiece("草", 8); // 扉（出口）
-					case 9 :
-						return new MapPiece("城", 9);
-					default :
-						return new MapPiece("山", 1); // 通れる壁
+					case 0 :return new MapPiece("闇", 1); // 通路
+					case 1 :return new MapPiece("草", 2);
+					case 2 :return new MapPiece("山", 0); // 壁
+					case 3 :return new MapPiece("海", 0); // 水
+					case 4 :return new MapPiece("洞窟", 4);
+					case 5 :return new MapPiece("洞窟", 5); // 階段（入口）
+					case 6 :return new MapPiece("山", 2);
+					case 7 :return new MapPiece("宝箱", 7);
+					case 8 :return new MapPiece("草", 8); // 扉（出口）
+					case 9 :return new MapPiece("城", 9);
+					default :return new MapPiece("山", 1); // 通れる壁
 			}
 			default :
 				return new MapPiece("闇", 0);
 		}
 	}
 
+	public String map_Name(int mapNumber) {
+		switch (mapNumber) {
+		case 0: return "フィールドA";
+		case 1: return "城A 1階";
+		case 2: return "洞窟A 地下1階";
+		case 3: return "城A 2階";
+		}
+		return "どこか";
+	}
+
 	int[] next_Map(int mapNumber, int x, int y) {
-		int[] next_Map = {0, 0, 0}; // {next_MapNumber, next_X, next_Y}
+		int[] next_Map = {0, 6, 6}; // {next_MapNumber, next_X, next_Y}
 		switch (mapNumber) {
 			case 0 : // 今 フィールドA
 				// 城A
@@ -167,25 +144,16 @@ public class Service {
 				// 正面出口
 				if (x == 0 && y == 6) next_Map = new int[] {0, 6, 6}; // フィールドA X6 Y6
 				// 洞窟A
-				if (x == -1 && y == 5) next_Map = new int[] {2, 7, 7}; // 洞窟A 地下1階 入口
+				if (x == 14 && y == 3) next_Map = new int[] {2, 7, 7}; // 洞窟A 地下1階 入口
+				// 階段A
+				if (x == 0 && y == 11) next_Map = new int[] {3, 6, 6}; // 城A 2階 階段A
 				break;
 			case 2 : // 今 洞窟A 地下1階
 				// 入口
-				if (x == 0 && y == 0) next_Map = new int[] {1, -1, 5}; // 城A 1階 洞窟A
+				if (x == 7 && y == 7) next_Map = new int[] {1, 14, 3}; // 城A 1階 洞窟A
 				break;
 		}
 		return next_Map;
-	}
-
-	public String map_Name(int mapNumber) {
-		switch (mapNumber) {
-		case 0: return "フィールドA";
-		case 1: return "城A 1階";
-		case 2: return "洞窟A 地下1階";
-		case 3: return "城A 2階";
-
-		}
-		return "どこか";
 	}
 
 	private void sound(float frequency, int soundLength) {
@@ -204,5 +172,64 @@ public class Service {
 	void mapChangeSound() {
 		sound(100f,150);
 		sound(100f,150);
+	}
+
+	int[][] shift_Map(int[][] originalMap, int x, int y) {
+		int[][] map = new int[originalMap.length][originalMap[0].length];
+		for (int i = 0; i < map.length; i++) {
+			for (int j = 0; j < map[i].length; j++) {
+				int row = i + y;
+				if (map.length <= row) row -= map.length;
+				int column = j + x;
+				if (map[0].length <= column) column -= map[0].length;
+				map[i][j] = originalMap[row][column];
+			}
+		}
+		return map;
+	}
+
+	private int[] center_XY(int[][] baseArray) {
+		int[] centerXY = {baseArray[0].length / 2, baseArray.length / 2};
+		return centerXY;
+	}
+
+	MapPiece[][] map_Data(int map_Number, int[][] map) {
+		MapPiece[][] map_Data = new MapPiece[map.length][map[0].length];
+		for (int i = 0; i < map.length; i++) {
+			for (int j = 0; j < map[i].length; j++) {
+				int piece_Number = map[i][j];
+				map_Data[i][j] = mapPiece(map_Number, piece_Number);
+			}
+		}
+		return map_Data;
+	}
+
+	public int piece_Number(int map_Number, int x, int y) {
+		int[][] originalMap = getOriginalMap(map_Number);
+		int[][] shift_Map = shift_Map(originalMap, x, y);
+		int[] mapCenter = center_XY(shift_Map);
+		int center_X = mapCenter[0];
+		int center_Y = mapCenter[1];
+		return shift_Map[center_X][center_Y];
+	}
+
+	public boolean isBarrier(int map_Number, int target_X, int target_Y) {
+		boolean isBarrier = false;
+		int[][] map = getOriginalMap(map_Number);
+		int[][] shift_Map = shift_Map(map, target_X, target_Y);
+		int[] mapCenter = center_XY(shift_Map);
+		int nextX = mapCenter[0];
+		int nextY = mapCenter[1];
+		MapPiece mapPiece = mapPiece(map_Number, map[nextX][nextY]);
+		int role = mapPiece.getRole();
+		if (role < 1 ) isBarrier = true;
+		return isBarrier;
+	}
+
+	public boolean isBarrier(MapPiece mapPiece) {
+		boolean isBarrier = false;
+		int role = mapPiece.getRole();
+		if (role < 1 ) isBarrier = true;
+		return isBarrier;
 	}
 }

@@ -20,7 +20,7 @@ public class Controller {
 	private String cancel;
 	private int menuNum;
 	private String imageURL;
-	private int mapNumber;
+	private int map_Number;
 	private View view;
 	private int x;
 	private int y;
@@ -111,7 +111,7 @@ public class Controller {
 			count = 0;
 			musicReset();
 			mapChangeSound();
-			mapNumber = 0;
+			map_Number = 0;
 			toNormal();
 		}
 	}
@@ -1295,9 +1295,9 @@ public class Controller {
 
 	private void toNormal() {
 		Common.___logOut___("toNormal() します");
-		Common.___logOut___("mapNumber = " + mapNumber);
+		Common.___logOut___("map_Number = " + map_Number);
 		setMessage("どうしますか?");
-		switch (mapNumber) {
+		switch (map_Number) {
 			case 0:
 				field(1);/////////////////////////////////////通常モードへ
 				repeatMusic("冒険の歌");
@@ -1460,42 +1460,15 @@ public class Controller {
 	}
 
 	public int[][] getOriginalMap() {
-		return service.getOriginalMap(mapNumber);
-	}
-
-	private MapPiece mapPiece(int piece_Number) {
-		Console._____OUT_____("mapNumber = " + mapNumber);
-		Console._____OUT_____("piece_Number = " + piece_Number);
-		return service.mapPiece(mapNumber, piece_Number);
-	}
-
-	private int[][] shift_Map(int[][] originalMap, int x, int y) {
-		int[][] map = new int[originalMap.length][originalMap[0].length];
-		for (int i = 0; i < map.length; i++) {
-			for (int j = 0; j < map[i].length; j++) {
-				int row = i + y;
-				if (map.length <= row) row -= map.length;
-				int column = j + x;
-				if (map[0].length <= column) column -= map[0].length;
-				map[i][j] = originalMap[row][column];
-			}
-		}
-		return map;
+		return service.getOriginalMap(map_Number);
 	}
 
 	private MapPiece[][] map_Data(int[][] map) {
-		MapPiece[][] map_Data = new MapPiece[map.length][map[0].length];
-		for (int i = 0; i < map.length; i++) {
-			for (int j = 0; j < map[i].length; j++) {
-				map_Data[i][j] = mapPiece(map[i][j]);
-			}
-		}
-		return map_Data;
+		return service.map_Data(map_Number, map);
 	}
 
-	private MapPiece[][] map_Data() {
-		int[][] map = shift_Map(getOriginalMap(), x, y);
-		return map_Data(map);
+	private int[][] shift_Map(int[][] originalMap, int x, int y) {
+		return service.shift_Map(originalMap, x, y);
 	}
 
 	private String[][] map_Image(MapPiece[][] map_Data) {
@@ -1758,7 +1731,7 @@ public class Controller {
 			case KeyEvent.VK_5:
 				System.out.println("上が押されました");
 				moveY--;
-				move_Map(map, moveX, moveY);
+				move_Map(moveX, moveY);
 				break;
 			case KeyEvent.VK_KP_DOWN:
 			case KeyEvent.VK_DOWN:
@@ -1766,21 +1739,21 @@ public class Controller {
 			case KeyEvent.VK_0:
 				System.out.println("下が押されました");
 				moveY++;
-				move_Map(map, moveX, moveY);
+				move_Map(moveX, moveY);
 				break;
 			case KeyEvent.VK_KP_LEFT:
 			case KeyEvent.VK_LEFT:
 			case KeyEvent.VK_4:
 				System.out.println("左が押されました");
 				moveX--;
-				move_Map(map, moveX, moveY);
+				move_Map(moveX, moveY);
 				break;
 			case KeyEvent.VK_KP_RIGHT:
 			case KeyEvent.VK_RIGHT:
 			case KeyEvent.VK_6:
 				System.out.println("右が押されました");
 				moveX++;
-				move_Map(map, moveX, moveY);
+				move_Map(moveX, moveY);
 				break;
 			default:
 				System.out.println(keyName + "KEYが押されました(mode = 1)");
@@ -1840,15 +1813,17 @@ public class Controller {
 		view.selectStyle();
 	}
 
-	private void move_Map(int[][] map, int moveX, int moveY) {
-
+	private void move_Map(int moveX, int moveY) {
+		int[][] map = getOriginalMap();
 		int after_X = x + moveX;
 		int after_Y = y + moveY;
 		// はみ出し修正
 		after_X = inRange(map[0].length, after_X);
 		after_Y = inRange(map.length, after_Y);
+		int piece_Number = piece_Number(after_X, after_Y);
+		MapPiece mapPiece = mapPiece(piece_Number);
 		// 移動先が障害物でなければ移動する
-		if(isBarrier(after_X, after_Y) == false) {
+		if(isBarrier(mapPiece) == false) {
 			position(after_X, after_Y);
 			Common.___logOut___("縦" + y + "横" + x + "に移動しました");
 			// 移動先のRoleによって各処理を行う
@@ -1858,6 +1833,18 @@ public class Controller {
 		} else {
 			Common.___logOut___("そちらへは移動できません");
 		}
+	}
+
+	private boolean isBarrier(MapPiece mapPiece) {
+		return service.isBarrier(mapPiece);
+	}
+
+	private MapPiece mapPiece(int piece_Number) {
+		return service.mapPiece(map_Number, piece_Number);
+	}
+
+	private int piece_Number(int x, int y) {
+		return service.piece_Number(map_Number, x, y );
 	}
 
 	void actionPerformedSwitch() {
@@ -1874,8 +1861,8 @@ public class Controller {
 	}
 
 	private void change_Map() {
-
-		int[] next_Map = service.next_Map(mapNumber, x, y);
+		Console._____OUT_____("change_Map() します");
+		int[] next_Map = next_Map(map_Number, x, y);
 		setMapNumber(next_Map[0]);
 		position(next_Map[1], next_Map[2]);
 		switch (next_Map[0]) {
@@ -1893,6 +1880,11 @@ public class Controller {
 		}
 	}
 
+	private int[] next_Map(int map_Number, int x, int y) {
+		Console._____OUT_____("next_Map(" + map_Number + ", " + x + ", " + y +") します");
+		return service.next_Map(map_Number, x, y);
+	}
+
 	private void doRole(int role) {
 		switch(role) {
 			case 4:
@@ -1903,7 +1895,7 @@ public class Controller {
 				change_Map();
 				break;
 			default:
-				// mapNumberが 1 以外の場合
+				// map_Numberが 1 以外の場合
 				if (isDanger()) {
 					// 移動先でイベント発動
 					do_Event();
@@ -1919,27 +1911,27 @@ public class Controller {
 		view.actionPerformed(ent);
 	}
 
-	public void setMapNumber(int mapNumber) {
-		Console._____OUT_____(map_Name(mapNumber) + " に移動します");
-		this.mapNumber = mapNumber;
-		Console._____OUT_____("mapNumber = " + mapNumber);
+	public void setMapNumber(int map_Number) {
+		Console._____OUT_____(map_Name(map_Number) + " に移動します");
+		this.map_Number = map_Number;
+		Console._____OUT_____("map_Number = " + map_Number);
 		mapChangeSound();
 	}
 
-	private String map_Name(int mapNumber) {
-		return service.map_Name(mapNumber);
+	private String map_Name(int map_Number) {
+		return service.map_Name(map_Number);
 	}
 
 	private boolean isDanger() {
 		boolean isDanger = true;
-		switch(mapNumber) {
+		switch(map_Number) {
 			case 1:
 
 				isDanger = false;
 				break;
 			default:
 		}
-		Common.___logOut___("mapNumber = " + mapNumber);
+		Common.___logOut___("map_Number = " + map_Number);
 		Common.___logOut___("mapCenterRole() = " + mapCenterRole());
 		Common.___logOut___("isDanger = " + isDanger);
 		return isDanger;
@@ -1953,11 +1945,10 @@ public class Controller {
 	}
 
 	private boolean isBarrier(int target_X, int target_Y) {
-		Console._____OUT_____("mapNumber = " + mapNumber);
-		Console.target_Position(target_X, target_Y);
-		boolean isBarrier = false;
-		int role = role(target_X, target_Y);
-		if (role < 1 ) isBarrier = true;
+		Console._____OUT_____("isBarrier(" + target_X + ", " + target_Y + ") します");
+		Console._____OUT_____("map_Number = " + map_Number);
+
+		boolean isBarrier = service.isBarrier(map_Number, target_X, target_Y);
 		Console._____OUT_____("isBarrier = " + isBarrier);
 		return isBarrier;
 	}
