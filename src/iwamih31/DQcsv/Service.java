@@ -5,8 +5,7 @@ import javax.sound.sampled.LineUnavailableException;
 public class Service {
 
 	public int[][] getOriginalMap(int map_Number) {
-		int[][] originalMap = null;
-		int[][] field1_Map = {
+		int[][] fieldA = {
 				{4,2,3,3,3,3,1,1,1,2,2,1,1,3,3},
 				{1,1,2,3,3,3,1,2,2,1,2,1,3,3,2},
 				{2,0,0,3,3,2,1,1,2,1,2,2,3,3,3},
@@ -23,7 +22,7 @@ public class Service {
 				{3,1,1,1,3,3,3,3,2,1,2,1,3,9,3},
 				{3,3,3,1,2,3,1,3,1,1,2,1,1,1,3}
 		};
-		int[][] castle1_Map = {
+		int[][] castleA_F1 = {
 				{3,3,3,3,3,3,3,3,3,3,3,3,3,3,1},
 				{3,3,3,1,1,1,1,1,1,1,1,1,1,1,1},
 				{3,3,2,1,2,2,2,2,2,2,2,2,2,2,1},
@@ -40,7 +39,24 @@ public class Service {
 				{3,3,3,1,3,1,8,8,8,1,3,3,3,3,3},
 				{3,4,1,1,3,1,1,1,1,1,3,1,1,1,1}
 		};
-		int[][] dungeon1_Map = {
+		int[][] dungeonA_B1 = {
+				{0,9,0,0,0,0,2,0,2,0,2,2,2,2,2},
+				{0,0,0,2,2,0,2,0,2,0,0,0,0,0,2},
+				{2,2,2,0,0,0,2,0,2,2,2,2,2,0,2},
+				{0,0,0,0,2,2,2,0,0,0,2,0,2,0,2},
+				{0,2,0,2,0,0,0,2,2,0,2,0,2,0,2},
+				{0,2,0,2,0,2,0,0,0,0,2,0,0,0,2},
+				{0,0,2,2,0,0,2,2,2,2,2,2,2,2,2},
+				{2,0,2,2,2,0,2,0,0,0,0,0,0,0,0},
+				{2,0,0,0,0,0,2,0,2,2,2,2,2,2,0},
+				{2,0,2,2,2,2,2,0,2,0,0,0,0,2,0},
+				{2,0,2,0,0,0,2,0,0,0,0,2,0,2,0},
+				{2,0,2,0,2,0,2,2,2,2,2,0,0,2,0},
+				{2,0,2,2,2,0,2,0,0,0,0,0,0,2,0},
+				{2,0,0,0,0,0,2,0,2,2,2,2,2,0,0},
+				{2,2,2,2,2,2,2,0,2,0,0,0,0,0,4}
+		};
+		int[][] castleA_F2 = {
 				{0,9,0,0,0,0,2,0,2,0,2,2,2,2,2},
 				{0,0,0,2,2,0,2,0,2,0,0,0,0,0,2},
 				{2,2,2,0,0,0,2,0,2,2,2,2,2,0,2},
@@ -58,20 +74,12 @@ public class Service {
 				{2,2,2,2,2,2,2,0,2,0,0,0,0,0,4}
 		};
 		switch (map_Number) {
-			case 0:
-				originalMap = field1_Map;
-				break;
-			case 1:
-				originalMap = castle1_Map;
-				break;
-			case 2:
-				originalMap = dungeon1_Map;
-				break;
-			default:
-				originalMap = field1_Map;
-				break;
+			case 0:return fieldA;
+			case 1:return castleA_F1;
+			case 2:return dungeonA_B1;
+			case 4:return castleA_F2;
+			default:return fieldA;
 		}
-		return originalMap;
 	}
 
 	MapPiece mapPiece(int map_Number, int piece_Number) {
