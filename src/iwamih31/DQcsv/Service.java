@@ -57,27 +57,27 @@ public class Service {
 				{2,2,2,2,2,2,2,0,2,0,0,0,0,0,4}
 		};
 		int[][] castleA_F2 = {
-				{0,9,0,0,0,0,2,0,2,0,2,2,2,2,2},
-				{0,0,0,2,2,0,2,0,2,0,0,0,0,0,2},
-				{2,2,2,0,0,0,2,0,2,2,2,2,2,0,2},
-				{0,0,0,0,2,2,2,0,0,0,2,0,2,0,2},
-				{0,2,0,2,0,0,0,2,2,0,2,0,2,0,2},
-				{0,2,0,2,0,2,0,0,0,0,2,0,0,0,2},
-				{0,0,2,2,0,0,2,2,2,2,2,2,2,2,2},
-				{2,0,2,2,2,0,2,0,0,0,0,0,0,0,0},
-				{2,0,0,0,0,0,2,0,2,2,2,2,2,2,0},
-				{2,0,2,2,2,2,2,0,2,0,0,0,0,2,0},
-				{2,0,2,0,0,0,2,0,0,0,0,2,0,2,0},
-				{2,0,2,0,2,0,2,2,2,2,2,0,0,2,0},
-				{2,0,2,2,2,0,2,0,0,0,0,0,0,2,0},
-				{2,0,0,0,0,0,2,0,2,2,2,2,2,0,0},
-				{2,2,2,2,2,2,2,0,2,0,0,0,0,0,4}
+				{3,3,3,3,3,3,3,3,3,3,3,3,3,3,1},
+				{3,3,3,1,1,1,1,1,1,1,1,1,1,1,1},
+				{3,3,2,1,2,2,2,2,2,2,2,2,2,2,1},
+				{3,1,2,0,0,2,0,9,2,0,2,0,0,2,1},
+				{3,1,2,2,0,2,0,2,0,0,0,0,0,2,1},
+				{3,1,2,0,0,2,0,0,0,0,2,0,2,2,1},
+				{3,1,2,0,2,2,2,2,2,2,0,0,0,2,1},
+				{3,1,2,0,0,2,0,0,0,0,2,0,0,2,1},
+				{3,1,2,0,0,0,0,2,0,0,0,0,0,2,1},
+				{3,1,2,2,2,2,2,2,2,2,2,2,0,2,1},
+				{3,0,0,0,0,0,4,0,0,0,0,0,0,2,1},
+				{3,2,2,2,2,2,2,0,2,2,2,2,2,2,1},
+				{3,9,1,1,1,1,2,0,2,1,1,1,1,1,1},
+				{3,3,3,1,3,1,8,8,8,1,3,3,3,3,3},
+				{3,4,1,1,3,1,1,1,1,1,3,1,1,1,1}
 		};
 		switch (map_Number) {
 			case 0:return fieldA;
 			case 1:return castleA_F1;
 			case 2:return dungeonA_B1;
-			case 4:return castleA_F2;
+			case 3:return castleA_F2;
 			default:return fieldA;
 		}
 	}
@@ -85,49 +85,90 @@ public class Service {
 	MapPiece mapPiece(int map_Number, int piece_Number) {
 		switch (map_Number) {
 			case 0: // フィールドA
-				switch (piece_Number) {
-					case 0 :return new MapPiece("砂", 1); // 道
-					case 1 :return new MapPiece("草", 2); // 魔物出現率アップ
-					case 2 :return new MapPiece("山", 0); // 障害物
-					case 3 :return new MapPiece("海", 0); // 障害物
-					case 4 :return new MapPiece("洞窟", 4); // 別マップへ
-					case 5 :return new MapPiece("洞窟", 5); // 階段（入口）
-					case 6 :return new MapPiece("山", 2);
-					case 7 :return new MapPiece("砂", 0); // 通れない道
-					case 8 :return new MapPiece("草", 8); // 扉（出口）
-					case 9 :return new MapPiece("城", 9);
-					default :return new MapPiece("砂", 0); // 通れない道
-			}
+				return field(piece_Number);
 			case 1: // 城A 1階
-				switch (piece_Number) {
-					case 0 :return new MapPiece("砂", 1);
-					case 1 :return new MapPiece("草", 2);
-					case 2 :return new MapPiece("山", 0);
-					case 3 :return new MapPiece("海", 0);
-					case 4 :return new MapPiece("洞窟", 4);
-					case 5 :return new MapPiece("洞窟", 5); // 階段（入口）
-					case 6 :return new MapPiece("山", 2);
-					case 7 :return new MapPiece("宝箱", 7);
-					case 8 :return new MapPiece("草", 8); // 扉（出口）
-					case 9 :return new MapPiece("城", 9);
-					default :return new MapPiece("砂", 0);
-			}
+				return castle1(piece_Number);
 			case 2: // 洞窟1
-				switch (piece_Number) {
-					case 0 :return new MapPiece("闇", 1); // 通路
-					case 1 :return new MapPiece("草", 2);
-					case 2 :return new MapPiece("山", 0); // 壁
-					case 3 :return new MapPiece("海", 0); // 水
-					case 4 :return new MapPiece("洞窟", 4);
-					case 5 :return new MapPiece("洞窟", 5); // 階段（入口）
-					case 6 :return new MapPiece("山", 2);
-					case 7 :return new MapPiece("宝箱", 7);
-					case 8 :return new MapPiece("草", 8); // 扉（出口）
-					case 9 :return new MapPiece("城", 9);
-					default :return new MapPiece("山", 1); // 通れる壁
-			}
-			default :
-				return new MapPiece("闇", 0);
+				return dungeon(piece_Number);
+			case 3: // 城A 2階
+				return castle2(piece_Number);
+		default: // その他
+			return field(piece_Number);
+		}
+	}
+
+	private MapPiece dungeon(int piece_Number) {
+		switch (piece_Number) {
+			case 0 :return new MapPiece("闇", 1); // 通路
+			case 1 :return new MapPiece("草", 2);
+			case 2 :return new MapPiece("山", 0); // 壁
+			case 3 :return new MapPiece("海", 0); // 水
+			case 4 :return new MapPiece("洞窟", 4);
+			case 5 :return new MapPiece("洞窟", 5); // 階段（入口）
+			case 6 :return new MapPiece("山", 2);
+			case 7 :return new MapPiece("宝箱", 7);
+			case 8 :return new MapPiece("草", 8); // 扉（出口）
+			case 9 :return new MapPiece("城", 9);
+		default :return new MapPiece("山", 1); // 通れる壁
+		}
+	}
+
+	// 0 障害物
+	// 1 通路
+	// 2 魔物出現率アップ
+	// 3 通路
+	// 4 別マップへ
+	// 5 （入口）別マップへ
+	// 6 ダメージ
+	// 7 体力回復
+	// 8 （出口）別マップへ
+	// 9 別マップへ
+
+	private MapPiece field(int piece_Number) {
+		switch (piece_Number) {
+			case 0 :return new MapPiece("砂", 1); // 道
+			case 1 :return new MapPiece("草", 2); // 魔物出現率アップ
+			case 2 :return new MapPiece("山", 0); // 障害物
+			case 3 :return new MapPiece("海", 0); // 障害物
+			case 4 :return new MapPiece("洞窟", 4); // 別マップへ
+			case 5 :return new MapPiece("洞窟", 5); // 階段（入口）別マップへ
+			case 6 :return new MapPiece("山", 2); // 魔物出現率アップ
+			case 7 :return new MapPiece("砂", 0); // 通れない道
+			case 8 :return new MapPiece("草", 8); // 扉（出口）別マップへ
+			case 9 :return new MapPiece("城", 9); // 別マップへ
+		default :return new MapPiece("砂", 0); // 通れない道
+		}
+	}
+
+	private MapPiece castle1(int piece_Number) {
+		switch (piece_Number) {
+			case 0 :return new MapPiece("砂", 1);
+			case 1 :return new MapPiece("草", 2);
+			case 2 :return new MapPiece("山", 0);
+			case 3 :return new MapPiece("海", 0);
+			case 4 :return new MapPiece("洞窟", 4);
+			case 5 :return new MapPiece("洞窟", 5); // 階段（入口）
+			case 6 :return new MapPiece("山", 2);
+			case 7 :return new MapPiece("宝箱", 7);
+			case 8 :return new MapPiece("草", 8); // 扉（出口）
+			case 9 :return new MapPiece("城", 9);
+		default :return new MapPiece("砂", 0);
+		}
+	}
+
+	private MapPiece castle2(int piece_Number) {
+		switch (piece_Number) {
+		case 0 :return new MapPiece("砂", 1);
+		case 1 :return new MapPiece("闇", 2);
+		case 2 :return new MapPiece("山", 0);
+		case 3 :return new MapPiece("海", 0);
+		case 4 :return new MapPiece("洞窟", 4);
+		case 5 :return new MapPiece("洞窟", 5); // 階段（入口）
+		case 6 :return new MapPiece("山", 2);
+		case 7 :return new MapPiece("宝箱", 7);
+		case 8 :return new MapPiece("草", 8); // 扉（出口）
+		case 9 :return new MapPiece("城", 9);
+		default :return new MapPiece("砂", 0);
 		}
 	}
 
@@ -154,7 +195,7 @@ public class Service {
 				// 洞窟A
 				if (x == 14 && y == 3) next_Map = new int[] {2, 7, 7}; // 洞窟A 地下1階 入口
 				// 階段A
-				if (x == 0 && y == 11) next_Map = new int[] {3, 6, 6}; // 城A 2階 階段A
+				if (x == 0 && y == 11) next_Map = new int[] {3, 0, 11}; // 城A 2階 階段A
 				break;
 			case 2 : // 今 洞窟A 地下1階
 				// 入口

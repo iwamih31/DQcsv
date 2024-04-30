@@ -280,6 +280,7 @@ public class Controller {
 
 	private void who() {
 		Common.___logOut___("who() します");
+		menu = Main.getpNa();
 		display(menu);
 	}
 
@@ -654,6 +655,9 @@ public class Controller {
 				}
 				break;
 			case 22503 ://使う,能力,death(),どのモンスターに？
+				target();
+				break;
+			case 225030 ://使う,能力,death(),どのモンスターに？
 				count = 0;
 				menu = Battle.mNa();
 				for (int i = 0; i < Battle.getMons().length; i++) {
@@ -665,6 +669,15 @@ public class Controller {
 				}
 				break;
 		}
+	}
+
+	private void target() {
+		Common.___logOut___("target() します");
+		String[] text = useEx.getExText();
+		setMessage(text[count]);
+		menu = Battle.mNa();
+		battleEx();
+		setMode(225030);
 	}
 
 	private void ex() {
@@ -729,8 +742,8 @@ public class Controller {
 		if (actor == 3) {
 			useEx = new Magic(party[3]);
 		}
-		Common.___logOut___("useEx = " + useEx.getClass() + " です");
 		Common.___logOut___("Ex.getName() = " + Ex.getName() + " です");
+		Common.___logOut___("useEx = " + useEx.getClass());
 		party[actor].ex();
 		setMessage("どの術を使いますか？");////////////////////次の質問
 		setMenu(useEx.menu());
@@ -1175,6 +1188,8 @@ public class Controller {
 			case 50 ://戦闘,メンバー
 				buttonName = null;
 				setMessage(Battle.getBattleText()[0]);
+				Battle.mList();
+				Battle.pTable();
 				menu = Battle.getMenu();
 				battle();
 				setMode(55);
@@ -1925,11 +1940,9 @@ public class Controller {
 	private boolean isDanger() {
 		boolean isDanger = true;
 		switch(map_Number) {
-			case 1:
-
+			case 1:// 城A 1階
+			case 3:// 城A 2階
 				isDanger = false;
-				break;
-			default:
 		}
 		Common.___logOut___("map_Number = " + map_Number);
 		Common.___logOut___("mapCenterRole() = " + mapCenterRole());

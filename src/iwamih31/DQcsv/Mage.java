@@ -41,7 +41,7 @@ public int attack(int ud) {
 	@Override
 	public void ex() {
 //		Member mem = Main.getParty()[ 3 ];
-		System.out.println( "どの術を使いますか？" );
+//		System.out.println( "どの術を使いますか？" );
 		new Magic( this );
 	}
 }

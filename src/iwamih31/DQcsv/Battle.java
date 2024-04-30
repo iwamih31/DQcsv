@@ -457,14 +457,14 @@ public class Battle extends AbstractTableModel{
 	  mHp = m1h + m2h + m3h + m4h;
 	}
 
-	public static void bMenu() {
-		for(Object[] stocks : menuList){
-			for(Object stock : stocks){
-				System.out.print(stock);
-			}
-		}
-		System.out.print("⇒⇒⇒⇒⇒⇒⇒⇒⇒⇒⇒⇒⇒⇒");
-	}
+//	public static void bMenu() {
+//		for(Object[] stocks : menuList){
+//			for(Object stock : stocks){
+//				System.out.print(stock);
+//			}
+//		}
+//		System.out.print("⇒⇒⇒⇒⇒⇒⇒⇒⇒⇒⇒⇒⇒⇒");
+//	}
 
 //	static void pList() {											//パーティーリスト
 //		fi = ( par [ 0 ] );
@@ -513,7 +513,7 @@ public class Battle extends AbstractTableModel{
 		System.out.println("");
 		par = Main.getParty();
 		if(par[p].getHp()>0){
-			Battle.bMenu();
+//			bMenu();
 			battleText = new String[]{"⇒☆[[ " + par[p].getName() + " ]]☆は、どうしますか？"};
 			Main.controller.setMenu(menu);
 			Main.controller.setMode(50);
@@ -521,33 +521,19 @@ public class Battle extends AbstractTableModel{
 	}
 
 	void pSelect(int inp) {
-		switch (inp + 1) {
-			case 1 : // 戦う
-				System.out.print("⇒☆[[ " + par[p].getName() + "の攻撃]]☆誰を攻撃しますか？   ");
-				par[p].wep();
-				System.out.println("");
-				System.out.println("");
-				mList();
-				System.out.println("");
+		switch (inp) {
+			case 0 : // 戦う
 				battleText = new String[]{"⇒☆[[ " + par[p].getName() + "の攻撃]]☆誰を攻撃しますか？   "};
 				break;
-			case 2 : // 道具
-				mList();
-				pTable();
-				System.out.println("");
+			case 1 : // 道具
 				Item.bag(par[p]);
 				break;
-			case 3 : // 能力
-				mList();
-				pTable();
-				System.out.println("");
+			case 2 : // 能力
 				par[p].ex();
 				break;
-			case 4 : // 逃げる
-				pTable();
-				System.out.println("");
+			case 3 : // 逃げる
 				boolean ok = par[p].run();
-				if (ok == true) {
+				if (ok) {
 					battleText = new String[]{ "[ " + par[p].getName() + " ]は、何とか逃げ切った・・・" };
 					fMode = 0;
 					Robot rb;
@@ -568,9 +554,6 @@ public class Battle extends AbstractTableModel{
 			default :
 				initial();
 				par[p].setHp(par[p].getHp() - 1);
-				pTable();
-				mList();
-				System.out.println("[[ " + par[p].getName() + " ]]は、コケた・・・");
 				battleText = new String[]{ "[[ " + par[p].getName() + " ]]は、コケた・・・" };
 		}
 		initial();
@@ -915,7 +898,7 @@ public class Battle extends AbstractTableModel{
 		for (int i = 0; i < mons.length; i++) {
 			if (mons[i].getHp() > 0) mCount++;
 		}
-		Common.___logOut___("現モンスター数 = " + mCount);
+//		Common.___logOut___("現モンスター数 = " + mCount);
 		mNa = new String[mCount];
 		mSt = new Object[3][mCount];
 		int i = 0;
