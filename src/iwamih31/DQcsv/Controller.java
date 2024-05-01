@@ -1965,22 +1965,6 @@ public class Controller {
 		return newNum;
 	}
 
-//	private boolean isBarrier(int target_X, int target_Y) {
-//		Console._____OUT_____("isBarrier(" + target_X + ", " + target_Y + ") します");
-//		Console._____OUT_____("map_Number = " + map_Number);
-//
-//		boolean isBarrier = service.isBarrier(map_Number, target_X, target_Y);
-//		Console._____OUT_____("isBarrier = " + isBarrier);
-//		return isBarrier;
-//	}
-
-//	private int role(int x, int y) {
-//		int[][] shift_Map = service.shift_Map(getOriginalMap(), x, y);
-//		int role = mapCenterRole(shift_Map);
-//		Console.role(role);
-//		return role;
-//	}
-
 	private int mapCenterRole(int[][] map) {
 		MapPiece[][] map_Data = map_Data(map);
 //			map2D();
