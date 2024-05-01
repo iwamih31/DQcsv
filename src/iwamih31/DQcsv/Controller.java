@@ -1968,7 +1968,6 @@ public class Controller {
 
 	private int mapCenterRole(int[][] map) {
 		MapPiece[][] map_Data = map_Data(map);
-//			map2D();
 		int[] mapCenter = centerXY(map);
 		int centerX = mapCenter[0];
 		int centerY = mapCenter[1];
