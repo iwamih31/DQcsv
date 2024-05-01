@@ -1961,8 +1961,9 @@ public class Controller {
 
 	private int inRange(int range, int num) {
 		int newNum = num;
-		if (range <= num) newNum -= range;
-		if (num < 0) newNum += range;
+		int half_Range = range / 2;
+		if (half_Range < num) newNum -= range;
+		if (num < -half_Range) newNum += range;
 		return newNum;
 	}
 
