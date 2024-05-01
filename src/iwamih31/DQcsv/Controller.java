@@ -35,6 +35,8 @@ public class Controller {
 	private String image_Map_Type;
 	private String center_Image;
 	private Service service;
+	private int view＿X;
+	private int view＿Y;
 
 	public Controller() {
 		service = new Service();
@@ -42,6 +44,8 @@ public class Controller {
 
 	void start() { // コントローラー開始
 		view = Main.getView();
+		view＿X = 15;
+		view＿Y = 15;
 		ynList = new String[]{ "はい", "いいえ" };
 		entMark = (" ⇒ ");
 		ent = entMark;
@@ -1482,10 +1486,6 @@ public class Controller {
 		return service.map_Data(map_Number, map);
 	}
 
-	private int[][] shift_Map(int[][] originalMap, int x, int y) {
-		return service.shift_Map(originalMap, x, y);
-	}
-
 	private String[][] map_Image(MapPiece[][] map_Data) {
 	String[][] map_Image = new String[map_Data.length][map_Data[0].length];
 	for (int i = 0; i < map_Data.length; i++) {
@@ -1658,9 +1658,18 @@ public class Controller {
 	}
 
 	private void map2D() {
-		int[][] map = shift_Map(getOriginalMap(), x, y);
+		int[][] map = view_Map();
 		String[][] map_Image = map_Image(map);
 		map2D(map_Image);
+	}
+
+	private int[][] view_Map() {
+		int[][] original_Map = getOriginalMap();
+		int[][] map = service.shift_Map(original_Map, x, y);
+		int cut_X = (original_Map[0].length - view＿X) / 2;
+		int cut_Y = (original_Map.length - view＿Y) / 2;
+		return service.cut_Map(map, cut_X, cut_Y);
+
 	}
 
 	private void setBackPanel(String string) {
@@ -1730,7 +1739,6 @@ public class Controller {
 	}
 
 	public void keyPressed(KeyEvent keyEvent) {
-		int[][] map = getOriginalMap();
 		int pressedKey = keyEvent.getKeyCode();
 		String keyName = KeyEvent.getKeyText(pressedKey);
 		Common.___logOut___("buttonName = " + getButtonName());
@@ -1957,33 +1965,33 @@ public class Controller {
 		return newNum;
 	}
 
-	private boolean isBarrier(int target_X, int target_Y) {
-		Console._____OUT_____("isBarrier(" + target_X + ", " + target_Y + ") します");
-		Console._____OUT_____("map_Number = " + map_Number);
+//	private boolean isBarrier(int target_X, int target_Y) {
+//		Console._____OUT_____("isBarrier(" + target_X + ", " + target_Y + ") します");
+//		Console._____OUT_____("map_Number = " + map_Number);
+//
+//		boolean isBarrier = service.isBarrier(map_Number, target_X, target_Y);
+//		Console._____OUT_____("isBarrier = " + isBarrier);
+//		return isBarrier;
+//	}
 
-		boolean isBarrier = service.isBarrier(map_Number, target_X, target_Y);
-		Console._____OUT_____("isBarrier = " + isBarrier);
-		return isBarrier;
-	}
-
-	private int role(int x, int y) {
-		int[][] shift_Map = shift_Map(getOriginalMap(), x, y);
-		int role = mapCenterRole(shift_Map);
-		Console.role(role);
-		return role;
-	}
+//	private int role(int x, int y) {
+//		int[][] shift_Map = service.shift_Map(getOriginalMap(), x, y);
+//		int role = mapCenterRole(shift_Map);
+//		Console.role(role);
+//		return role;
+//	}
 
 	private int mapCenterRole(int[][] map) {
 		MapPiece[][] map_Data = map_Data(map);
 //			map2D();
 		int[] mapCenter = centerXY(map);
-		int nextX = mapCenter[0];
-		int nextY = mapCenter[1];
-		return map_Data[nextY][nextX].getRole();
+		int centerX = mapCenter[0];
+		int centerY = mapCenter[1];
+		return map_Data[centerY][centerX].getRole();
 	}
 
 	private int mapCenterRole() {
-		int[][] map = shift_Map(getOriginalMap(), x, y);
+		int[][] map = service.shift_Map(getOriginalMap(), x, y);
 		return mapCenterRole(map);
 	}
 
