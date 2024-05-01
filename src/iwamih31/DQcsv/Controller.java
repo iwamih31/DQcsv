@@ -1951,6 +1951,7 @@ public class Controller {
 			case 1:// 城A 1階
 			case 3:// 城A 2階
 				isDanger = false;
+				break;
 		}
 		Common.___logOut___("map_Number = " + map_Number);
 		Common.___logOut___("mapCenterRole() = " + mapCenterRole());

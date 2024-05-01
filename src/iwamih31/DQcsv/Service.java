@@ -204,9 +204,9 @@ public class Service {
 				// 正面出口
 				if (x == 0 && y == 6) next_Map = new int[] {0, 6, 6}; // フィールドA X6 Y6
 				// 洞窟A
-				if (x == 14 && y == 3) next_Map = new int[] {2, 7, 7}; // 洞窟A 地下1階 入口
+				if (x == -3 && y == 6) next_Map = new int[] {2, 7, 7}; // 洞窟A 地下1階 入口
 				// 階段A
-				if (x == 0 && y == 11) next_Map = new int[] {3, 0, 11}; // 城A 2階 階段A
+				if (x == 1 && y == -1) next_Map = new int[] {3, 0, 11}; // 城A 2階 階段A
 				break;
 			case 2 : // 今 洞窟A 地下1階
 				// 入口
@@ -239,9 +239,11 @@ public class Service {
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[i].length; j++) {
 				int row = i + y;
-				if (map.length <= row) row -= map.length;
+				if (row < 0) row += map.length;
+				else if (map.length <= row) row -= map.length;
 				int column = j + x;
-				if (map[0].length <= column) column -= map[0].length;
+				if (column < 0) column += map[0].length;
+				else if (map[0].length <= column) column -= map[0].length;
 				map[i][j] = originalMap[row][column];
 			}
 		}
