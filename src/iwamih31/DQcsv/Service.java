@@ -197,7 +197,6 @@ public class Service {
 		switch (mapNumber) {
 			case 0 : // 今 フィールドA
 				// 城A
-//				if (x == 6 && y == 6) next_Map = new int[] {1, 0, 5}; // 城A 1階 正面出口へ
 				if (x == 6 && y == 6) next_Map = new int[] {1, 1, 8}; // 城A 1階 正面出口へ
 				break;
 			case 1 : // 今 城A 1階
