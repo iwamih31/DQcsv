@@ -1888,6 +1888,8 @@ public class Controller {
 		Console._____OUT_____("change_Map() します");
 		int[] next_Map = next_Map(map_Number, x, y);
 		setMapNumber(next_Map[0]);
+		musicReset();
+		mapChangeSound();
 		position(next_Map[1], next_Map[2]);
 		switch (next_Map[0]) {
 			case 0:
@@ -1898,6 +1900,9 @@ public class Controller {
 				break;
 			case 2:
 				field(7);
+				break;
+			case 3:
+				field(6);
 				break;
 			default:
 				toNormal();
@@ -1936,10 +1941,9 @@ public class Controller {
 	}
 
 	public void setMapNumber(int map_Number) {
-		Console._____OUT_____(map_Name(map_Number) + " に移動します");
 		this.map_Number = map_Number;
 		Console._____OUT_____("map_Number = " + map_Number);
-		mapChangeSound();
+		Console._____OUT_____(map_Name(map_Number) + " に移動します");
 	}
 
 	private String map_Name(int map_Number) {
@@ -2004,8 +2008,8 @@ public class Controller {
 
 	private void mapChangeSound() {
 		Console._____OUT_____("mapChangeSound() します");
-		musicReset();
 		service.mapChangeSound();
+		Console._____OUT_____("service.mapChangeSound() しました");
 	}
 
 	public static void rem() {

@@ -219,12 +219,12 @@ public class Service {
 		case 0 :return new MapPiece("砂", 1);
 		case 1 :return new MapPiece("闇", 2);
 		case 2 :return new MapPiece("山", 0);
-		case 3 :return new MapPiece("海", 0);
+		case 3 :return new MapPiece("闇", 0);
 		case 4 :return new MapPiece("洞窟", 4);
 		case 5 :return new MapPiece("洞窟", 5); // 階段（入口）
-		case 6 :return new MapPiece("山", 2);
-		case 7 :return new MapPiece("宝箱", 7);
-		case 8 :return new MapPiece("草", 8); // 扉（出口）
+		case 6 :return new MapPiece("草", 2); // イベント
+		case 7 :return new MapPiece("勇者", 0); // 王様
+		case 8 :return new MapPiece("海", 8); // 扉（出口）
 		case 9 :return new MapPiece("城", 9);
 		default :return new MapPiece("砂", 0);
 		}
