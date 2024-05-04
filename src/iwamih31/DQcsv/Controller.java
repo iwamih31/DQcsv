@@ -1851,6 +1851,7 @@ public class Controller {
 			Common.___logOut___("縦" + y + "横" + x + "に移動しました");
 			// 移動先のRoleによって各処理を行う
 			int role = mapCenterRole();
+			Common.___logOut___("role = " + role);
 			doRole(role);
 			buttonName = null;
 		} else {
@@ -1968,11 +1969,16 @@ public class Controller {
 	}
 
 	private int mapCenterRole(int[][] map) {
-		MapPiece[][] map_Data = map_Data(map);
-		int[] mapCenter = centerXY(map);
-		int centerX = mapCenter[0];
-		int centerY = mapCenter[1];
-		return map_Data[centerY][centerX].getRole();
+		int piece_Number = map_Center(map);
+		MapPiece mapPiece = mapPiece(piece_Number);
+		return mapPiece.getRole();
+	}
+
+	private int map_Center(int[][] map) {
+		int[] centerXY = centerXY(map);
+		int centerX = centerXY[0];
+		int centerY = centerXY[1];
+		return map[centerY][centerX];
 	}
 
 	private int mapCenterRole() {
