@@ -75,7 +75,7 @@ public class Service {
 				{3,3,3,3,3,2,2,8,2,2,2,8,2,2,2,8,2,2,2,2,3,3,3,3,3},
 				{3,3,3,3,3,2,6,0,0,0,0,0,0,0,0,0,2,6,6,2,3,3,3,3,3},
 				{3,3,3,3,3,2,0,0,0,6,2,0,0,7,0,0,0,0,0,2,3,3,3,3,3},
-				{3,3,3,3,3,2,6,0,0,0,2,0,0,0,0,0,2,0,6,2,3,3,3,3,3},
+				{3,3,3,3,3,2,6,0,0,0,2,0,0,6,0,0,2,0,6,2,3,3,3,3,3},
 				{3,3,3,3,3,2,2,0,2,2,2,0,0,0,0,0,2,6,6,2,3,3,3,3,3},
 				{3,3,3,3,3,2,6,0,0,6,2,0,0,0,0,0,2,2,2,2,3,3,3,3,3},
 				{3,3,3,3,3,2,2,2,2,2,2,0,0,5,0,0,2,0,6,2,3,3,3,3,3},
@@ -117,9 +117,9 @@ public class Service {
 		}
 	}
 
-	int[] next_Map(int mapNumber, int x, int y) {
+	int[] next_Map(int map_Number, int x, int y) {
 		int[] next_Map = {0, 6, 6}; // {next_MapNumber, next_X, next_Y}
-		switch (mapNumber) {
+		switch (map_Number) {
 			case 0 : // 今 フィールドA
 				// 城A
 				if (x == 6 && y == 6) next_Map = new int[] {1, 1, 8}; // 城A 1階 正面出口へ
@@ -222,7 +222,7 @@ public class Service {
 		case 3 :return new MapPiece("闇", 0);
 		case 4 :return new MapPiece("洞窟", 4);
 		case 5 :return new MapPiece("洞窟", 5); // 階段（入口）
-		case 6 :return new MapPiece("草", 2); // イベント
+		case 6 :return new MapPiece("草", 7); // イベント
 		case 7 :return new MapPiece("勇者", 0); // 王様
 		case 8 :return new MapPiece("海", 8); // 扉（出口）
 		case 9 :return new MapPiece("城", 9);

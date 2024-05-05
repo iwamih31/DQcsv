@@ -410,6 +410,9 @@ public class Controller {
 				musicReset();
 				eventLoop();
 				break;
+			case 101 ://王様1
+				loop(mode);
+				break;
 		}
 	}
 
@@ -1329,6 +1332,10 @@ public class Controller {
 				field(７);/////////////////////////////////////ダンジョンモードへ
 				repeatMusic("洞窟のテーマ");
 				break;
+			case 3:
+				field(6);/////////////////////////////////////城内モードへ
+				repeatMusic("城へ");
+				break;
 		}
 		Main.save();
 		count = 0;
@@ -1848,7 +1855,7 @@ public class Controller {
 		// 移動先が障害物でなければ移動する
 		if(isBarrier(mapPiece) == false) {
 			position(after_X, after_Y);
-			Common.___logOut___("縦" + y + "横" + x + "に移動しました");
+			Common.___logOut___(map_Name() + " 縦" + y + " 横" + x + " に移動しました");
 			// 移動先のRoleによって各処理を行う
 			int role = mapCenterRole();
 			Common.___logOut___("role = " + role);
@@ -1923,14 +1930,59 @@ public class Controller {
 				// 別マップへ移動
 				change_Map();
 				break;
+			case 7:
+				attraction();
+				break;
 			default:
-				// map_Numberが 1 以外の場合
+				// イベント発動マップにいる場合
 				if (isDanger()) {
 					// 移動先でイベント発動
 					do_Event();
 				}
 		}
 		actionPerformedSwitch();
+	}
+
+	private void attraction() {
+		switch (map_Number) {
+			case 0 : // 今 フィールドA
+				break;
+			case 1 : // 今 城A 1階
+				break;
+			case 2 : // 今 洞窟A 地下1階
+				break;
+			case 3 : // 今 城A 1階
+				// 王様前
+				if (x == 1 && y == -4) talk(101);
+				break;
+		}
+	}
+
+	private void talk(int mode) {
+		story.talk(mode);
+		field(mode);
+	}
+
+	private void loop(int number) {
+		Common.___logOut___("loop(" + number + ") します");
+		String[] text = story.talk(number);
+		if (count < text.length) {
+			setMessageEnt(text[count]);
+			count_Action(number, count);
+			count += 1;
+			field(number);
+		} else {
+			toNormal();
+		}
+	}
+
+	private void count_Action(int number, int count) {
+		switch (number) {
+			case 101 :  // 王様1
+				if (count == 0) {
+				}
+				break;
+		}
 	}
 
 	private void do_Event() {
@@ -1948,6 +2000,11 @@ public class Controller {
 
 	private String map_Name(int map_Number) {
 		return service.map_Name(map_Number);
+	}
+
+	private String map_Name() {
+		int piece_Number = piece_Number(x, y);
+		return map_Name(piece_Number);
 	}
 
 	private boolean isDanger() {

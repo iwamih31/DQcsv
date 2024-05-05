@@ -113,4 +113,25 @@ public class Story extends AbstractTableModel{
 	public String[] getTextList() {
 		return textList;
 	}
+
+	public String[] talk(int number) {
+		Battle.pTable();
+		switch(number) {
+			case 101:
+				textList = new String[2];
+				textList[0] = "「[ " + p_Name + " ]よ、一刻も早く[ " + b_Name + " ]を倒し、世界に平和をもたらすのじゃ!!!」";
+				textList[1] = "";
+				break;
+			case 102:
+				textList = new String[2];
+				textList[0] = "「」";
+				textList[1] = "";
+				break;
+		default:
+			textList = new String[2];
+			textList[0] = "「わしの城はどうじゃ？」";
+			textList[1] = "";
+		}
+		return textList;
+	}
 }
