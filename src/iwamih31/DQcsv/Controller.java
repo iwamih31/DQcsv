@@ -668,7 +668,7 @@ public class Controller {
 				count = 0;
 				menu = Battle.mNa();
 				for (int i = 0; i < Battle.getMons().length; i++) {
-					if (getButtonName().equals(Battle.getMons()[i].getName())) {
+					if (getButtonName().equals(menu[i])) {
 						setMode(2250);
 						Magic.death(i);
 						exLoop();
@@ -680,9 +680,7 @@ public class Controller {
 
 	private void target() {
 		Common.___logOut___("target() します");
-		String[] text = useEx.getExText();
-		setMessage(text[count]);
-		menu = Battle.mNa();
+		set_Menu(Battle.mNa());
 		battleEx();
 		setMode(225030);
 	}
@@ -795,6 +793,7 @@ public class Controller {
 					} else {
 						setMessageEnt(text[count]);
 					}
+					if(mode == 22503) set_Menu(Battle.mNa());
 					battleEx();
 				}
 			count = (count + 1);
