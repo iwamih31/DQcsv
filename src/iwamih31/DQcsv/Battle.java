@@ -224,7 +224,7 @@ public class Battle extends AbstractTableModel{
 
 	public void fight() {
 		Common.___logOut___("Battle.fight() します");
-		if (0 < pHp && 0 < mHp && fMode == 1) { ///////////////////////戦闘中↓
+		if (is_Fight()) { ///////////////////////戦闘中↓
 			int rs = new java.util.Random().nextInt(pFSp);
 			if (rs == 0) {
 				pfs = (0);
@@ -296,6 +296,11 @@ public class Battle extends AbstractTableModel{
 			}
 		Main.save();
 		}
+	}
+
+	private boolean is_Fight() {
+		if(0 < pHp && 0 < mHp && fMode == 1) return true;
+		return false;
 	}
 
 	public void turn() {
