@@ -306,7 +306,7 @@ public class Battle extends AbstractTableModel{
 	public void turn() {
 		Common.___logOut___("Battle.turn() します");
 		Common.___logOut___("[ " + (around + 1) + " ]人目のアクション");
-		if (mHp > 0 && fMode == 1 && pHp > 0 && turn.size() > around) {
+		if (is_Fight() && turn.size() > around) {
 			switch (turn.get(around)) {
 				case 0 ://パーティ[0]
 					setActor(0);
