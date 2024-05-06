@@ -18,18 +18,14 @@ public abstract class Monster extends Character{
 	}
 
 	public boolean run() {
-		System.out.println( "  逃げ出した・・・");
 		String[] run = new String[2];
 		run[0] = "[ "+ name +" ]は、逃げ出した・・・";
 		int r = new java.util.Random ( ).nextInt( 100 );
 		if ( r < ( getLev( ) + 20 ) ) {
-			System.out.println( name + "は、どこかへ行ってしまった" );
 			run[1] = "[ "+ name +" ]は、どこかへ行ってしまった・・・";
 			Battle.setBattleText(run);
 			return true;
 		} else {
-			System.out.println( "" );
-			System.out.println( name + "は逃げ切れない!!" );
 			run[1] = "[ "+ name +" ]は逃げ切れない!!";
 			Battle.setBattleText(run);
 			return false;
