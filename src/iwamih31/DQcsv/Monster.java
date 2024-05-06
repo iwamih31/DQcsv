@@ -42,18 +42,15 @@ public abstract class Monster extends Character{
 	}
 
 	public void ex(int m ){
-		System.out.println( "動いた・・・" );
 		Monster mon = Battle.mons [ m ];
 		Battle.setBattleText(new String[]{"[ "+mon.name+" ]は、動いた・・・"});
 		int typ = mon.typ;
-		String name = mon.name;
 		int what = ( new java.util.Random ( ).nextInt(2) ) - 1;
 		new MEx( mon, ( what + ( typ * 2 ) ) );
 	}
 
 	public void other( int clickItem ){
-		System.out.println( name + "は様子を窺っている・・・" );
-		Battle.setBattleText(new String[]{"[ "+ name +" ]は様子を窺っている・・・"});
+		Battle.setBattleText(new String[]{"[ "+ name +" ]は様子をうかがっている・・・"});
 	}
 
 	public void setExp(int exp) {

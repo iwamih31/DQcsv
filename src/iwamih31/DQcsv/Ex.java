@@ -19,7 +19,6 @@ public class Ex extends AbstractTableModel{
 	protected static int lev = user.getLev();
 	protected static int hp = user.getHp();
 	protected static int mp = user.getMp();
-	private static int exp = user.getExp();
 	protected static int job;
 	protected static int ep;
 	protected static int useMp ;
@@ -28,13 +27,13 @@ public class Ex extends AbstractTableModel{
 	private static ArrayList<String> array;
 	private Object[][] ex;
 
-	Ex(Character memb) {
-		user = memb;
+	Ex(Character character) {
+		user = character;
 		name = user.getName();
 		lev = user.getLev();
 		hp = user.getHp();
 		mp = user.getMp();
-		exp = user.getExp();
+		user.getExp();
 		ep = user.getEp();
 		exText = new String[]{"○○ は ○○ を行った・・・"};
 		setEx();
