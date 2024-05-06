@@ -73,7 +73,7 @@ public class Controller {
 
 	private void position_Initial() {
 		Console._____OUT_____("position_Initial() します");
-		position(6, 6);
+		position(0, 0);
 	}
 
 	private void opening() {
@@ -1266,6 +1266,7 @@ public class Controller {
 				break;
 			case 555 ://戦闘,次へ
 				if (buttonName.equals(ent)) {
+
 					battleLoop();
 				}
 				break;

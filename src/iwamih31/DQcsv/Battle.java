@@ -179,12 +179,9 @@ public class Battle extends AbstractTableModel{
 			} catch (AWTException e1) {
 				e1.printStackTrace();
 			}
-			System.out.println("");
-		    System.out.println("気のせいだったようだ・・・");
-		    System.out.println("");
-		    battleText = new String[]{ "気のせいだったようだ・・・" };
-		    fMode = 0;
-		    Main.controller.setMode(555);
+	    battleText = new String[]{ "気のせいだったようだ・・・" };
+	    fMode = 0;
+	    Main.controller.setMode(555);
 		}else{
 			System.out.println( "" );
 			mList();
@@ -520,7 +517,7 @@ public class Battle extends AbstractTableModel{
 		if(par[p].getHp()>0){
 //			bMenu();
 			battleText = new String[]{"⇒☆[[ " + par[p].getName() + " ]]☆は、どうしますか？"};
-			Main.controller.setMenu(menu);
+//			Main.controller.setMenu(menu);
 			Main.controller.setMode(50);
 		}
 	}
@@ -633,10 +630,9 @@ public class Battle extends AbstractTableModel{
 	private void mBattle(int m) {///////////////////////////////////////////モンスターのターン
 		Monster mon = mons[m];
 		if (mon.getHp() > 0) {
+			battleText = new String[0];
 			Main.controller.setMode(555);
 			pTable();
-			System.out.println("");
-			System.out.print("⇒★[[ " + mon.getName() + " ]]★は、");
 			int job = new java.util.Random().nextInt(7) + mon.getTyp();
 			switch (job) {
 				case 3 : // 戦う
@@ -651,7 +647,6 @@ public class Battle extends AbstractTableModel{
 					if (par[who].getHp() < 1) {
 						mBattle(m);
 					} else {
-						System.out.println(par[who].getName() + "に襲いかかってきた!!!");
 						String text1 = "[ " + mon.getName() + " ]は、[ " + par[who].getName() + " ]に襲いかかってきた!!!";
 						int judg = new java.util.Random().nextInt(mon.getSp() * mon.getLev());
 						if (judg == 1) {
@@ -705,13 +700,12 @@ public class Battle extends AbstractTableModel{
 					}
 					break;
 				case 5 : // 使う
-					System.out.println("様子を窺っている・・・");
-					//			Input.ent();
 					battleText = new String[]{ "[ " + mon.getName() + " ]は、様子を窺っている・・・" };
 					break;
 				case 6 : // 能力
 				case 7 :
 				case 8 :
+					battleText = new String[]{ "[ " + mon.getName() + " ]は、何かを行った・・・" };
 					Main.controller.setMode(555);
 					mons[m].ex(m);
 					break;
