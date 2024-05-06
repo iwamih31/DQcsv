@@ -113,30 +113,34 @@ public class Service {
 	}
 
 	int[] next_Map(int map_Number, int x, int y) {
-		int[] next_Map = {0, 0, 0}; // {next_MapNumber, next_X, next_Y}
-		switch (map_Number) {
-			case 0 : // 今 フィールドA
-				// 城A
-				if (x == 0 && y == 0) next_Map = new int[] {1, 1, 8}; // 城A 1階 正面出口へ
-				break;
-			case 1 : // 今 城A 1階
-				// 正面出口
-				if (x == 0 && y == 6) next_Map = new int[] {0, 0, 0}; // フィールドA X6 Y6
-				// 洞窟A
-				if (x == -3 && y == 6) next_Map = new int[] {2, 7, 7}; // 洞窟A 地下1階 入口
-				// 階段A
-				if (x == 1 && y == -1) next_Map = new int[] {3, 1, -1}; // 城A 2階 階段A
-				break;
-			case 2 : // 今 洞窟A 地下1階
-				// 入口
-				if (x == 7 && y == 7) next_Map = new int[] {1, -3, 6}; // 城A 1階 洞窟A
-				break;
-			case 3 : // 今 城A 2階
-				// 階段A
-				if (x == 1 && y == -1) next_Map = new int[] {1, 1, -1}; // 城A 1階 階段A
-				break;
+		int[] now_Piece = new int[] {map_Number, x, y};
+		if (fit(now_Piece, "フィールドA 城A")) 		return piece_Position("城A 1階 正面出口");
+		if (fit(now_Piece, "城A 1階 正面出口")) 	return piece_Position("フィールドA 城A");
+		if (fit(now_Piece, "城A 1階 洞窟A")) 			return piece_Position("洞窟A 地下1階 入口");
+		if (fit(now_Piece, "城A 1階 階段A")) 			return piece_Position("城A 2階 階段A");
+		if (fit(now_Piece, "城A 2階 階段A")) 			return piece_Position("城A 1階 階段A");
+		if (fit(now_Piece, "洞窟A 地下1階 入口")) return piece_Position("城A 1階 洞窟A");
+		return piece_Position("フィールドA 城A");
+	}
+
+	private boolean fit(int[] piece_Position, String piece_Name) {
+		int[] check_Position = piece_Position(piece_Name);
+		if (piece_Position[0] == check_Position[0] &&
+				piece_Position[1] == check_Position[1] &&
+				piece_Position[2] == check_Position[2]) return true;
+		return false;
+	}
+
+	private int[] piece_Position(String piece_Name) {
+		switch (piece_Name) {
+			case "フィールドA 城A" 		:return new int[] { 0,  0,  0};
+			case "城A 1階 正面出口"		:return new int[] { 1,  1,  8};
+			case "城A 1階 階段A"  		:return new int[] { 1,  1, -1};
+			case "城A 1階 洞窟A" 			:return new int[] { 1, -3,  6};
+			case "洞窟A 地下1階 入口"	:return new int[] { 2,  7,  7};
+			case "城A 2階 階段A"			:return new int[] { 3,  1, -1};
+		default	:return new int[] { 0,  0,  0};
 		}
-		return next_Map;
 	}
 
 	MapPiece mapPiece(int map_Number, int piece_Number) {
