@@ -159,7 +159,11 @@ public class Service {
 				break;
 			case 2 : // 今 洞窟A 地下1階
 				// 入口
-				if (x == 7 && y == 7) next_Map = new int[] {1, 14, 3}; // 城A 1階 洞窟A
+				if (x == 7 && y == 7) next_Map = new int[] {1, -3, 6}; // 城A 1階 洞窟A
+				break;
+			case 3 : // 今 城A 2階
+				// 階段A
+				if (x == 1 && y == -1) next_Map = new int[] {1, 1, -1}; // 城A 1階 階段A
 				break;
 		}
 		return next_Map;
