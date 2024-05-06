@@ -137,8 +137,8 @@ public class Service {
 			case "城A 1階 正面出口"		:return new int[] { 1,  1,  8};
 			case "城A 1階 階段A"  		:return new int[] { 1,  1, -1};
 			case "城A 1階 洞窟A" 			:return new int[] { 1, -3,  6};
-			case "洞窟A 地下1階 入口"	:return new int[] { 2,  7,  7};
 			case "城A 2階 階段A"			:return new int[] { 3,  1, -1};
+			case "洞窟A 地下1階 入口"	:return new int[] { 2,  7,  7};
 		default	:return new int[] { 0,  0,  0};
 		}
 	}
@@ -219,16 +219,16 @@ public class Service {
 
 	private MapPiece castle2(int piece_Number) {
 		switch (piece_Number) {
-		case 0 :return new MapPiece("砂", 1); // 通路
-		case 1 :return new MapPiece("草", 3); // バリア
-		case 2 :return new MapPiece("山", 0); // 壁
-		case 3 :return new MapPiece("海", 0); // 空
-		case 4 :return new MapPiece("城", 4); // 階段（上り）
-		case 5 :return new MapPiece("洞窟", 4); // 階段（下り）
-		case 6 :return new MapPiece("草", 7); // イベント
-		case 7 :return new MapPiece("勇者", 0); // 王様
-		case 8 :return new MapPiece("海", 4); // 扉（出口）
-		case 9 :return new MapPiece("闇", 7); // 穴
+			case 0 :return new MapPiece("砂", 1); // 通路
+			case 1 :return new MapPiece("草", 3); // バリア
+			case 2 :return new MapPiece("山", 0); // 壁
+			case 3 :return new MapPiece("海", 0); // 空
+			case 4 :return new MapPiece("城", 4); // 階段（上り）
+			case 5 :return new MapPiece("洞窟", 4); // 階段（下り）
+			case 6 :return new MapPiece("草", 7); // イベント
+			case 7 :return new MapPiece("勇者", 0); // 王様
+			case 8 :return new MapPiece("海", 4); // 扉（出口）
+			case 9 :return new MapPiece("闇", 7); // 穴
 		default :return new MapPiece("砂", 0);
 		}
 	}
