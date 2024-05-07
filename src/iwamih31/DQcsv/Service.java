@@ -39,15 +39,15 @@ public class Service {
 				{3,3,3,3,3,2,3,2,1,1,1,2,1,2,1,2,3,3,3,3,3,3,0,8,3},
 				{3,3,3,3,8,2,3,0,2,1,2,0,0,2,1,1,0,2,2,2,3,3,0,8,3},
 				{3,3,3,2,1,2,0,0,2,0,0,0,2,2,2,2,0,0,0,0,0,0,0,3,3},
-				{3,3,3,3,1,2,2,0,2,0,2,2,9,0,0,0,2,2,2,2,1,2,3,3,3},
+				{3,3,3,3,1,2,2,0,2,0,2,2,4,0,0,0,2,2,2,2,1,2,3,3,3},
 				{3,3,1,3,1,2,0,0,2,0,0,2,2,2,2,0,0,0,0,2,1,1,3,3,3},
 				{3,1,1,2,1,2,0,2,2,2,0,2,0,0,0,2,2,0,0,2,1,1,3,3,3},
 				{1,1,2,3,1,2,0,0,0,0,0,0,0,2,0,0,0,0,0,2,1,2,3,3,3},
 				{3,3,3,3,1,2,2,0,2,2,2,2,2,2,2,2,2,2,2,2,1,3,3,3,3},
-				{3,3,2,1,1,2,0,0,0,0,0,2,0,9,0,2,0,0,0,2,1,3,3,3,3},
+				{3,3,2,1,1,2,0,0,0,0,0,2,0,5,0,2,0,0,0,2,1,3,3,3,3},
 				{3,1,0,2,1,2,0,0,2,0,0,2,0,2,0,0,0,0,0,2,1,3,3,3,3},
 				{2,1,1,2,1,2,0,0,2,0,0,2,0,0,0,2,2,2,2,2,1,2,3,3,3},
-				{1,2,1,3,1,2,2,0,2,0,2,2,2,0,2,2,5,0,0,2,1,2,3,3,3},
+				{1,2,1,3,1,2,2,0,2,0,2,2,2,0,2,2,4,0,0,2,1,2,3,3,3},
 				{3,1,2,3,1,2,0,0,2,0,2,0,0,0,0,0,2,0,0,2,1,3,3,3,3},
 				{3,3,2,3,1,2,0,0,2,0,0,0,0,0,0,0,7,2,0,2,1,3,3,3,3},
 				{3,3,3,3,1,2,0,2,2,2,2,0,0,0,0,0,2,0,0,2,1,3,3,3,3},
@@ -112,12 +112,27 @@ public class Service {
 		}
 	}
 
+	private int[] piece_Position(String piece_Name) {
+		switch (piece_Name) {
+			case "フィールドA 城A" 		:return new int[] { 0,  0,  0};
+			case "城A 1階 正面出口"		:return new int[] { 1,  1,  8};
+			case "城A 1階 階段A"  		:return new int[] { 1,  1, -1};
+			case "城A 1階 洞窟A" 			:return new int[] { 1, -3,  6};
+			case "城A 1階 洞窟B"			:return new int[] { 1,  4,  2};
+			case "城A 2階 階段A"			:return new int[] { 3,  1, -1};
+			case "洞窟A 地下1階 入口"	:return new int[] { 2,  7,  7};
+			case "洞窟B 地下1階 入口"	:return new int[] { 2,  4,  2};
+		default	:return new int[] { 0,  0,  0};
+		}
+	}
+
 	int[] next_Map(int map_Number, int x, int y) {
 		int[] now_Piece = new int[] {map_Number, x, y};
 		if (fit(now_Piece, "フィールドA 城A")) 		return piece_Position("城A 1階 正面出口");
 		if (fit(now_Piece, "城A 1階 正面出口")) 	return piece_Position("フィールドA 城A");
-		if (fit(now_Piece, "城A 1階 洞窟A")) 			return piece_Position("洞窟A 地下1階 入口");
 		if (fit(now_Piece, "城A 1階 階段A")) 			return piece_Position("城A 2階 階段A");
+		if (fit(now_Piece, "城A 1階 洞窟A")) 			return piece_Position("洞窟A 地下1階 入口");
+		if (fit(now_Piece, "城A 1階 洞窟B")) 			return piece_Position("洞窟B 地下1階 入口");
 		if (fit(now_Piece, "城A 2階 階段A")) 			return piece_Position("城A 1階 階段A");
 		if (fit(now_Piece, "洞窟A 地下1階 入口")) return piece_Position("城A 1階 洞窟A");
 		return piece_Position("フィールドA 城A");
@@ -129,18 +144,6 @@ public class Service {
 				piece_Position[1] == check_Position[1] &&
 				piece_Position[2] == check_Position[2]) return true;
 		return false;
-	}
-
-	private int[] piece_Position(String piece_Name) {
-		switch (piece_Name) {
-			case "フィールドA 城A" 		:return new int[] { 0,  0,  0};
-			case "城A 1階 正面出口"		:return new int[] { 1,  1,  8};
-			case "城A 1階 階段A"  		:return new int[] { 1,  1, -1};
-			case "城A 1階 洞窟A" 			:return new int[] { 1, -3,  6};
-			case "城A 2階 階段A"			:return new int[] { 3,  1, -1};
-			case "洞窟A 地下1階 入口"	:return new int[] { 2,  7,  7};
-		default	:return new int[] { 0,  0,  0};
-		}
 	}
 
 	MapPiece mapPiece(int map_Number, int piece_Number) {
@@ -201,6 +204,16 @@ public class Service {
 		}
 	}
 
+	public String map_Name(int mapNumber) {
+		switch (mapNumber) {
+		case 0: return "フィールドA";
+		case 1: return "城A 1階";
+		case 2: return "洞窟A 地下1階";
+		case 3: return "城A 2階";
+		}
+		return "どこか";
+	}
+
 	private MapPiece castle1(int piece_Number) {
 		switch (piece_Number) {
 			case 0 :return new MapPiece("砂", 1);
@@ -233,16 +246,6 @@ public class Service {
 		}
 	}
 
-	public String map_Name(int mapNumber) {
-		switch (mapNumber) {
-		case 0: return "フィールドA";
-		case 1: return "城A 1階";
-		case 2: return "洞窟A 地下1階";
-		case 3: return "城A 2階";
-		}
-		return "どこか";
-	}
-
 	private void sound(float frequency, int soundLength) {
 		try {
 			new Sound(frequency, soundLength);
@@ -252,7 +255,6 @@ public class Service {
 	}
 
 	void pushSound() {
-//			Toolkit.getDefaultToolkit().beep(); // ビープ音を鳴らす
 		sound(440f,100);
 	}
 

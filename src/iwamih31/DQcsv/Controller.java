@@ -1951,11 +1951,26 @@ public class Controller {
 				break;
 			case 2 : // 今 洞窟A 地下1階
 				break;
-			case 3 : // 今 城A 1階
+			case 3 : // 今 城A 2階
 				// 王様前
 				if (x == 1 && y == -4) talk(101);
+				// 穴A
+				if (x == 6 && y == 6) fall(new int[] {1, 6, 6});
 				break;
 		}
+	}
+
+	private void fall(int[] piece_Position) {
+		setMapNumber(piece_Position[0]);
+		musicReset();
+		fall_Sound();
+		position(piece_Position[1], piece_Position[2]);
+		field(mode);
+	}
+
+	private void fall_Sound() {
+		// TODO 自動生成されたメソッド・スタブ
+
 	}
 
 	private void talk(int mode) {
