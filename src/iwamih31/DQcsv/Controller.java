@@ -1963,14 +1963,9 @@ public class Controller {
 	private void fall(int[] piece_Position) {
 		setMapNumber(piece_Position[0]);
 		musicReset();
-		fall_Sound();
+		service.fall_Sound();
 		position(piece_Position[1], piece_Position[2]);
 		field(mode);
-	}
-
-	private void fall_Sound() {
-		// TODO 自動生成されたメソッド・スタブ
-
 	}
 
 	private void talk(int mode) {

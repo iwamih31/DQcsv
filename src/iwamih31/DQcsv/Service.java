@@ -246,21 +246,8 @@ public class Service {
 		}
 	}
 
-	private void sound(float frequency, int soundLength) {
-		try {
-			new Sound(frequency, soundLength);
-		} catch (LineUnavailableException e) {
-			e.printStackTrace();
-		}
-	}
-
 	void pushSound() {
 		sound(440f,100);
-	}
-
-	void mapChangeSound() {
-		sound(100f,150);
-		sound(100f,150);
 	}
 
 	int[][] shift_Map(int[][] originalMap, int x, int y) {
@@ -332,5 +319,23 @@ public class Service {
 			}
 		}
 		return cut_Map;
+	}
+
+	private void sound(float frequency, int soundLength) {
+		try {
+			new Sound(frequency, soundLength);
+		} catch (LineUnavailableException e) {
+			e.printStackTrace();
+		}
+	}
+
+	void mapChangeSound() {
+		sound(100f,150);
+		sound(100f,150);
+	}
+
+	public void fall_Sound() {
+		sound(1200f,600);
+		sound(400f,150);
 	}
 }
